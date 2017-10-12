@@ -2,12 +2,15 @@
   <main>
     <info-form v-if="step === 1" 
       :info="info"
-      :languages="languages"
+      :selectedLanguages="languages"
+      @updated="updatedLanguages"
     ></info-form>
 
-    <language-input v-if="step === 2"
+    <language-sortable v-if="step === 2"
       :languages="languages"
-    ></language-input>
+      :tip="'掌握程度'"
+      @sorted="sortByLevel"
+    ></language-sortable>
 
     <div style="text-align: center;">
       <ButtonGroup shape="circle" size="large">
@@ -26,7 +29,7 @@
 
 <script>
 import InfoForm from './InfoForm'
-import LanguageInput from './LanguageInput'
+import LanguageSortable from './LanguageSortable'
 
 export default {
   name: 'LeapQ',
@@ -47,7 +50,8 @@ export default {
         qq: '',
         wechat: ''
       },
-      languages: []
+      languages: [],
+      levelLanguages: []
     }
   },
   methods: {
@@ -56,11 +60,17 @@ export default {
     },
     prev: function () {
       this.step = (this.step - 1) || 1
+    },
+    updatedLanguages: function (languages) {
+      this.levelLanguages = this.languages = languages
+    },
+    sortByLevel: function (languages) {
+      this.levelLanguages = languages
     }
   },
   components: {
     'info-form': InfoForm,
-    'language-input': LanguageInput
+    'language-sortable': LanguageSortable
   }
 }
 </script>

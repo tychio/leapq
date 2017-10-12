@@ -80,9 +80,11 @@
 </template>
 
 <script>
+import * as _ from 'lodash'
+
 export default {
   name: 'InfoForm',
-  props: ['info', 'languages'],
+  props: ['info', 'selectedLanguages'],
   data: function () {
     return {
       candiateLanguages: [
@@ -99,13 +101,19 @@ export default {
         { id: 'arabic', text: '阿拉伯语' },
         { id: 'portuguese', text: '葡萄牙语' },
         { id: 'other', text: '其他' }
-      ]
+      ],
+      languages: []
     }
   },
   watch: {
     languages: function (selectedLang) {
       selectedLang.length = selectedLang.length > 5 ? 5 : selectedLang.length
+      const languagesObj = _.filter(this.candiateLanguages, lang => _.includes(selectedLang, lang.id))
+      this.$emit('updated', languagesObj)
     }
+  },
+  mounted: function () {
+    this.languages = _.map(this.selectedLanguages, lang => lang.id)
   }
 }
 </script>

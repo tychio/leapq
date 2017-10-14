@@ -4,7 +4,10 @@
     <Draggable v-model="sortedLanguages">
       <div class="card" v-for="lang in sortedLanguages" :key="lang.id">
         <Card>
-          <p slot="title">{{lang.text}}</p>
+          <p slot="title">
+            <span>{{lang.text}}</span>
+            <Icon style="float: right" type="arrow-move" />
+          </p>
           <p>{{lang.id | capitalize}}</p>
         </Card>
       </div>

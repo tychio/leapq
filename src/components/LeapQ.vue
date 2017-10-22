@@ -16,6 +16,10 @@
         :languages="levelLanguages"
         @updated="updatedRates"
       ></rate-selector>
+      <check-list
+        :items="barrierTypes"
+        @updated="updatedBarriers"
+      ></check-list>
     </template>
 
     <div style="text-align: center;">
@@ -37,6 +41,7 @@
 import InfoForm from './InfoForm'
 import LanguageSortable from './LanguageSortable'
 import RateSelector from './RateSelector'
+import CheckList from './CheckList'
 
 export default {
   name: 'LeapQ',
@@ -59,7 +64,14 @@ export default {
       },
       levelRates: [],
       languages: [],
-      levelLanguages: []
+      levelLanguages: [],
+      barrierTypes: {
+        vision: '视力障碍',
+        audition: '听力障碍',
+        language: '语言障碍',
+        study: '学习障碍'
+      },
+      levelBarriers: {}
     }
   },
   methods: {
@@ -77,12 +89,16 @@ export default {
     },
     updatedRates: function (rates) {
       this.levelRates = rates
+    },
+    updatedBarriers: function (barriers) {
+      this.levelBarriers = barriers
     }
   },
   components: {
     'info-form': InfoForm,
     'language-sortable': LanguageSortable,
-    'rate-selector': RateSelector
+    'rate-selector': RateSelector,
+    'check-list': CheckList
   }
 }
 </script>

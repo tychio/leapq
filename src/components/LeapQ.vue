@@ -34,6 +34,14 @@
       ></num-selector>
     </template>
 
+    <template v-if="step === 4">
+      <h3>请根据说明对下列项目进行评分</h3>
+      <score-table
+        :languages="timeLanguages"
+        @updated="updateScore"
+      ></score-table>
+    </template>
+
     <div style="text-align: center;">
       <ButtonGroup shape="circle" size="large">
         <Button @click="prev" type="default">
@@ -55,6 +63,7 @@ import LanguageSortable from './LanguageSortable'
 import RateSelector from './RateSelector'
 import NumSelector from './NumSelector'
 import CheckList from './CheckList'
+import ScoreTable from './ScoreTable'
 
 export default {
   name: 'LeapQ',
@@ -112,6 +121,9 @@ export default {
     },
     updatedAge: function (ages) {
       this.timeAges = ages
+    },
+    updateScore: function (score) {
+      this.score = score
     }
   },
   components: {
@@ -119,7 +131,8 @@ export default {
     'language-sortable': LanguageSortable,
     'rate-selector': RateSelector,
     'num-selector': NumSelector,
-    'check-list': CheckList
+    'check-list': CheckList,
+    'score-table': ScoreTable
   }
 }
 </script>

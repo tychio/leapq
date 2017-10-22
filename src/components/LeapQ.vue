@@ -22,6 +22,18 @@
       ></check-list>
     </template>
 
+    <template v-if="step === 3">
+      <language-sortable
+        :languages="languages"
+        :tip="'学习语言的时间先后顺序'"
+        @sorted="sortByTime"
+      ></language-sortable>
+      <num-selector
+        :languages="timeLanguages"
+        @updated="updatedAge"
+      ></num-selector>
+    </template>
+
     <div style="text-align: center;">
       <ButtonGroup shape="circle" size="large">
         <Button @click="prev" type="default">
@@ -41,6 +53,7 @@
 import InfoForm from './InfoForm'
 import LanguageSortable from './LanguageSortable'
 import RateSelector from './RateSelector'
+import NumSelector from './NumSelector'
 import CheckList from './CheckList'
 
 export default {
@@ -65,6 +78,7 @@ export default {
       levelRates: [],
       languages: [],
       levelLanguages: [],
+      timeLanguages: [],
       barrierTypes: {
         vision: '视力障碍',
         audition: '听力障碍',
@@ -82,22 +96,29 @@ export default {
       this.step = (this.step - 1) || 1
     },
     updatedLanguages: function (languages) {
-      this.levelLanguages = this.languages = languages
+      this.timeLanguages = this.levelLanguages = this.languages = languages
     },
     sortByLevel: function (languages) {
       this.levelLanguages = languages
+    },
+    sortByTime: function (languages) {
+      this.timeLanguages = languages
     },
     updatedRates: function (rates) {
       this.levelRates = rates
     },
     updatedBarriers: function (barriers) {
       this.levelBarriers = barriers
+    },
+    updatedAge: function (ages) {
+      this.timeAges = ages
     }
   },
   components: {
     'info-form': InfoForm,
     'language-sortable': LanguageSortable,
     'rate-selector': RateSelector,
+    'num-selector': NumSelector,
     'check-list': CheckList
   }
 }

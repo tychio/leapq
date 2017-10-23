@@ -8,7 +8,7 @@
 
     <template v-if="step === 2">
       <language-sortable
-        :languages="languages"
+        :languages="levelLanguages"
         :tip="'掌握程度'"
         @sorted="sortByLevel"
       ></language-sortable>
@@ -24,7 +24,7 @@
 
     <template v-if="step === 3">
       <language-sortable
-        :languages="languages"
+        :languages="timeLanguages"
         :tip="'学习语言的时间先后顺序'"
         @sorted="sortByTime"
       ></language-sortable>
@@ -33,7 +33,6 @@
         @updated="updatedAge"
       ></num-selector>
     </template>
-
     <template v-if="step === 4">
       <h3>请根据说明对下列项目进行评分</h3>
       <score-table
@@ -41,7 +40,6 @@
         @updated="updateScore"
       ></score-table>
     </template>
-
     <div style="text-align: center;">
       <ButtonGroup shape="circle" size="large">
         <Button @click="prev" type="default">
@@ -99,13 +97,23 @@ export default {
   },
   methods: {
     next: function () {
-      this.step++
+      const target = this.step + 1
+      this.step = 0
+      this.$nextTick(() => {
+        this.step = target
+      })
     },
     prev: function () {
-      this.step = (this.step - 1) || 1
+      const target = (this.step - 1) || 1
+      this.step = 0
+      this.$nextTick(() => {
+        this.step = target
+      })
     },
     updatedLanguages: function (languages) {
-      this.timeLanguages = this.levelLanguages = this.languages = languages
+      this.languages = languages
+      this.timeLanguages = JSON.parse(JSON.stringify(languages))
+      this.levelLanguages = JSON.parse(JSON.stringify(languages))
     },
     sortByLevel: function (languages) {
       this.levelLanguages = languages

@@ -18,7 +18,7 @@
     :title="'根据下列语言环境对你每种语言的出现频率进行评分'"
     :section="touch"
     :names="touchNames"
-    :languages="otherLanguages"
+    :languages="languages"
     :legends="rateLegends"
   ></score-section>
   <score-section

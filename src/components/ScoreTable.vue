@@ -5,24 +5,28 @@
     :section="level"
     :names="levelNames"
     :languages="languages"
+    :legends="levelLegends"
   ></score-section>
   <score-section
     :title="'根据下列各种因素对你学习每种语言的影响程度进行评分'"
     :section="impact"
     :names="impactNames"
     :languages="languages"
+    :legends="impactLegends"
   ></score-section>
   <score-section
     :title="'根据下列语言环境对你每种语言的出现频率进行评分'"
     :section="touch"
     :names="touchNames"
     :languages="otherLanguages"
+    :legends="rateLegends"
   ></score-section>
   <score-section
     :title="'根据下列描述的口音情况进行评分'"
     :section="oral"
     :names="oralNames"
     :languages="otherLanguages"
+    :legends="rateLegends"
   ></score-section>
 </div>
 </template>
@@ -39,6 +43,9 @@ export default {
       init[lang.id] = 0
     })
     return {
+      levelLegends: ['无', '很差', '差', '勉强', '尚可', '一般', '较好', '良好', '很好', '优秀', '精通'],
+      impactLegends: ['无影响', '最小影响', '微弱影响', '稍有影响', '较少影响', '一般影响', '较为影响', '特别影响', '很大影响', '巨大影响', '最重要影响'],
+      rateLegends: ['从来没有', '几乎没有', '基本没有', '偶尔', '很少时间', '一般时间', '较为影响', '特别影响', '很大影响', '巨大影响', '最重要影响'],
       levelNames: {
         suffix: '该语言的能力',
         speak: '说',

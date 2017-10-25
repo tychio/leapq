@@ -29,6 +29,9 @@ export default {
   watch: {
     sortedLanguages: function (languages) {
       this.$emit('sorted', languages)
+    },
+    languages: function () {
+      this.sortedLanguages = this.languages
     }
   },
   filters: {

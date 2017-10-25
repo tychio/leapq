@@ -1,12 +1,14 @@
 <template>
   <main>
-    <info-form v-if="step === 1" 
-      :info="info"
-      :selectedLanguages="languages"
-      @updated="updatedLanguages"
-    ></info-form>
+    <section v-show="step === 1" >
+      <info-form
+        :info="info"
+        :selectedLanguages="languages"
+        @updated="updatedLanguages"
+      ></info-form>
+    </section>
 
-    <template v-if="step === 2">
+    <section v-show="step === 2">
       <language-sortable
         :languages="levelLanguages"
         :tip="'掌握程度'"
@@ -20,9 +22,9 @@
         :items="barrierTypes"
         @updated="updatedBarriers"
       ></check-list>
-    </template>
+    </section>
 
-    <template v-if="step === 3">
+    <section v-show="step === 3">
       <language-sortable
         :languages="timeLanguages"
         :tip="'学习语言的时间先后顺序'"
@@ -32,14 +34,19 @@
         :languages="timeLanguages"
         @updated="updatedAge"
       ></num-selector>
-    </template>
-    <template v-if="step === 4">
+      <bilingual
+        :languages="timeLanguages"
+        :bilingual="bilingual"
+        @updated="updatedBilingual"
+      ></bilingual>
+    </section>
+    <section v-show="step === 4">
       <h3>请根据说明对下列项目进行评分</h3>
       <score-table
         :languages="timeLanguages"
         @updated="updateScore"
       ></score-table>
-    </template>
+    </section>
     <div style="text-align: center;">
       <ButtonGroup shape="circle" size="large">
         <Button @click="prev" type="default">
@@ -62,6 +69,7 @@ import RateSelector from './RateSelector'
 import NumSelector from './NumSelector'
 import CheckList from './CheckList'
 import ScoreTable from './ScoreTable'
+import Bilingual from './Bilingual'
 
 export default {
   name: 'LeapQ',
@@ -92,23 +100,16 @@ export default {
         language: '语言障碍',
         study: '学习障碍'
       },
-      levelBarriers: {}
+      levelBarriers: {},
+      bilingual: {}
     }
   },
   methods: {
     next: function () {
-      const target = this.step + 1
-      this.step = 0
-      this.$nextTick(() => {
-        this.step = target
-      })
+      this.step = this.step + 1
     },
     prev: function () {
-      const target = (this.step - 1) || 1
-      this.step = 0
-      this.$nextTick(() => {
-        this.step = target
-      })
+      this.step = (this.step - 1) || 1
     },
     updatedLanguages: function (languages) {
       this.languages = languages
@@ -132,6 +133,9 @@ export default {
     },
     updateScore: function (score) {
       this.score = score
+    },
+    updatedBilingual: function (bilingual) {
+      this.bilingual = bilingual
     }
   },
   components: {
@@ -140,7 +144,8 @@ export default {
     'rate-selector': RateSelector,
     'num-selector': NumSelector,
     'check-list': CheckList,
-    'score-table': ScoreTable
+    'score-table': ScoreTable,
+    'bilingual': Bilingual
   }
 }
 </script>

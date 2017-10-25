@@ -1,7 +1,7 @@
 <template>
   <fieldset>
     <legend v-html="tip"></legend>
-    <div class="slider-container">
+    <div class="slider-container" v-if="sliders.length">
       <template v-for="(slider, index) in sliders">
         <label>{{slider.text}}({{results[slider.id]}}%):</label><Slider v-model="results[slider.id]" @input="drag(index)"></Slider>
       </template>
@@ -16,14 +16,18 @@ export default {
   name: 'RateSlider',
   props: ['sliders', 'tip'],
   data: function () {
-    const data = {
+    return {
       results: {},
-      noInput: false
+      noInput: true
     }
-    _.each(this.sliders, slider => {
-      data.results[slider.id] = Math.round(100 / this.sliders.length)
-    })
-    return data
+  },
+  watch: {
+    sliders: function () {
+      _.each(this.sliders, slider => {
+        this.results[slider.id] = Math.round(100 / this.sliders.length)
+        this.noInput = false
+      })
+    }
   },
   methods: {
     drag: function (index) {

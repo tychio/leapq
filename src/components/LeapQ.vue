@@ -149,6 +149,7 @@ export default {
 main {
   width: 840px;
   margin: auto;
+  font-size: 16px;
 }
 </style>
 

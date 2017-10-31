@@ -47,6 +47,9 @@
         @updated="updateScore"
       ></score-table>
     </section>
+    <section v-show="step === 5">
+      <h3>提交成功，非常感谢！</h3>
+    </section>
     <div style="text-align: center;">
       <transition name="fade">
         <Alert v-if="warning" type="warning" show-icon>
@@ -59,10 +62,11 @@
           <Icon type="chevron-left"></Icon>
           <span>上一步</span>
         </Button>
-        <Button @click="next" type="success">
+        <Button v-if="step < 4" @click="next" type="success">
           <span>下一步</span>
           <Icon type="chevron-right"></Icon>
         </Button>
+        <Button v-else @click="submit" type="success"><span>提交</span></Button>
       </ButtonGroup>
     </div>
   </main>
@@ -114,14 +118,26 @@ export default {
       warning: ''
     }
   },
+  computed: {
+    results: function () {
+      return {
+        levelLanguages: this.levelLanguages,
+        timeLanguages: this.timeLanguages,
+        info: this.info,
+        levelRates: this.levelRates,
+        levelBarriers: this.levelBarriers,
+        timeAges: this.timeAges,
+        bilingual: this.bilingual,
+        score: this.score
+      }
+    }
+  },
   methods: {
     next: function () {
       if (this.step === 1) {
         this.warning = this.validStep1()
       } else if (this.step === 3) {
         this.warning = this.validStep3()
-      } else if (this.step === 4) {
-        this.warning = this.validStep4()
       }
       if (!this.warning) {
         this.step = this.step + 1
@@ -129,6 +145,12 @@ export default {
     },
     prev: function () {
       this.step = (this.step - 1) || 1
+    },
+    submit: function () {
+      this.warning = this.validStep4()
+      if (!this.warning) {
+        console.log(this.results)
+      }
     },
     updatedLanguages: function (languages) {
       this.languages = languages

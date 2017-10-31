@@ -56,7 +56,7 @@
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{home[lang.id]}}年）:</label>
-          <Slider v-model="home[lang.id]" :min="0" :max="30"></Slider>
+          <Slider @input="drag" v-model="home[lang.id]" :min="0" :max="30"></Slider>
         </template>
       </div>
     </fieldset>
@@ -65,7 +65,7 @@
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{community[lang.id]}}年）:</label>
-          <Slider v-model="community[lang.id]" :min="0" :max="30"></Slider>
+          <Slider @input="drag" v-model="community[lang.id]" :min="0" :max="30"></Slider>
         </template>
       </div>
     </fieldset>
@@ -91,6 +91,11 @@ export default {
       school: _.clone(init),
       home: _.clone(init),
       community: _.clone(init)
+    }
+  },
+  methods: {
+    drag: function () {
+      this.$emit('updated', _.clone(this.$data))
     }
   }
 }

@@ -6,6 +6,7 @@
     :names="levelNames"
     :languages="languages"
     :legends="levelLegends"
+    @updated="updated"
   ></score-section>
   <score-section
     :title="'根据下列各种因素对你学习每种语言的影响程度进行评分'"
@@ -13,6 +14,7 @@
     :names="impactNames"
     :languages="languages"
     :legends="impactLegends"
+    @updated="updated"
   ></score-section>
   <score-section
     :title="'根据下列语言环境对你每种语言的出现频率进行评分'"
@@ -20,6 +22,7 @@
     :names="touchNames"
     :languages="languages"
     :legends="rateLegends"
+    @updated="updated"
   ></score-section>
   <score-section
     :title="'根据下列描述的口音情况进行评分'"
@@ -27,6 +30,7 @@
     :names="oralNames"
     :languages="otherLanguages"
     :legends="rateLegends"
+    @updated="updated"
   ></score-section>
 </div>
 </template>
@@ -102,6 +106,14 @@ export default {
       const languagesText = _.map(this.languages, lang => lang.text)
       const text = '他人根据你的口音，判断出你说的' + languagesText.slice(1).join('，') + '不是你的母语（' + languagesText[0] + '）的概率'
       return text
+    },
+    updated: function () {
+      this.$emit('updated', {
+        level: _.clone(this.level),
+        impact: _.clone(this.impact),
+        touch: _.clone(this.touch),
+        oral: _.clone(this.oral)
+      })
     }
   },
   computed: {

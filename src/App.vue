@@ -40,6 +40,12 @@ header, footer {
   font-weight: normal;
 }
 
+header {
+  border-bottom: 1px solid #888;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;

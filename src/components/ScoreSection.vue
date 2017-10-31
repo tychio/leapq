@@ -6,7 +6,7 @@
       <legend><strong>{{names[name]}}</strong>{{names.suffix}}</legend>
       <div v-for="lang in languages">
         <label class="rate-label">{{lang.text}}</label>
-        <Rate show-text :count="11" v-model="item[lang.id]">
+        <Rate @input="updated" show-text :count="11" v-model="item[lang.id]">
           <span>{{legends[item[lang.id] - 1]}}</span>
         </Rate>
       </div>
@@ -14,9 +14,15 @@
   </section>
 </template>
 <script>
+import * as _ from 'lodash'
 export default {
   name: 'ScoreSection',
-  props: ['title', 'section', 'names', 'languages', 'legends']
+  props: ['title', 'section', 'names', 'languages', 'legends'],
+  methods: {
+    updated: function () {
+      return this.$emit('updated', _.clone(this.section))
+    }
+  }
 }
 </script>
 

@@ -25,6 +25,7 @@ export default {
     sliders: function () {
       _.each(this.sliders, slider => {
         this.results[slider.id] = Math.round(100 / this.sliders.length)
+        this.updatedResults()
         this.noInput = false
       })
     }
@@ -38,6 +39,7 @@ export default {
       this.noInput = true
       this.$nextTick(() => {
         this.results = this.average(this.results, index)
+        this.updatedResults()
         this.$nextTick(() => {
           this.noInput = false
         })
@@ -58,6 +60,9 @@ export default {
     },
     rest: function (results) {
       return _.sum(_.map(results, item => item)) - 100
+    },
+    updatedResults: function () {
+      this.$emit('updated', this.results)
     }
   },
   mounted: function () {

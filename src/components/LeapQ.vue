@@ -149,7 +149,11 @@ export default {
     submit: function () {
       this.warning = this.validStep4()
       if (!this.warning) {
-        console.log(this.results)
+        this.$http.post('http://api.tych.io/questionary', {
+          data: this.results
+        }).then(response => {
+        }, response => {
+        })
       }
     },
     updatedLanguages: function (languages) {

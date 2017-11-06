@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import InfoForm from './InfoForm'
 import LanguageSortable from './LanguageSortable'
 import RateSelector from './RateSelector'
@@ -149,7 +150,7 @@ export default {
     submit: function () {
       this.warning = this.validStep4()
       if (!this.warning) {
-        this.$http.post('http://api.tych.io/questionary', {
+        axios.post('http://localhost:3000/questionary', {
           data: this.results
         }).then(response => {
         }, response => {

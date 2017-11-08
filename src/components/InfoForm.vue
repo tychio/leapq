@@ -110,6 +110,11 @@ export default {
       selectedLang.length = selectedLang.length > 5 ? 5 : selectedLang.length
       const languagesObj = _.filter(this.candiateLanguages, lang => _.includes(selectedLang, lang.id))
       this.$emit('updated', languagesObj)
+    },
+    'info.birthday': function (birthday) {
+      const today = (new Date()).setHours(0)
+      const ageMS = today - birthday
+      this.info.age = (new Date(ageMS)).getYear() - 70
     }
   },
   mounted: function () {

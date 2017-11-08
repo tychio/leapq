@@ -5,7 +5,7 @@
       v-if="languages.length"
       :sliders="languages"
       :tip="'分别给出你接触下列语言的时间：'"
-      @updated="updatedTouch"
+      @updated="updatedFirst"
     ></rate-slicer>
     <rate-slicer
       v-if="languages.length"
@@ -37,7 +37,7 @@ export default {
   data: function () {
     return {
       results: {
-        touch: {},
+        first: {},
         read: {},
         speak: {},
         write: {}
@@ -45,8 +45,8 @@ export default {
     }
   },
   methods: {
-    updatedTouch: function (data) {
-      this.results.touch = data
+    updatedFirst: function (data) {
+      this.results.first = data
       this.update()
     },
     updatedRead: function (data) {

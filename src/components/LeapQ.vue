@@ -108,7 +108,7 @@ export default {
       timeLanguages: [],
       barrierTypes: {
         vision: '视力障碍',
-        audition: '听力障碍',
+        hearing: '听力障碍',
         language: '语言障碍',
         study: '学习障碍'
       },

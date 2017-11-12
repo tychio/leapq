@@ -24,6 +24,7 @@ export default {
   },
   watch: {
     sliders: function () {
+      this.results = {}
       _.each(this.sliders, slider => {
         this.results[slider.id] = Math.round(100 / this.sliders.length)
         this.updatedResults()

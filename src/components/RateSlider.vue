@@ -96,7 +96,8 @@ legend {
     border-radius: 0;
   }
 
-  .ivu-slider-button {
+  .ivu-slider-button,
+  .ivu-tooltip {
     display: none;
   }
 }

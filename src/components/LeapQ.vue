@@ -119,6 +119,12 @@ export default {
       warning: ''
     }
   },
+  mounted: function () {
+    if (window.document.body.clientWidth < 960) {
+      console.log('mobile')
+      window.requestAnimationFrame = () => {}
+    }
+  },
   computed: {
     results: function () {
       return {

@@ -1,7 +1,7 @@
 <template>
 <div>
   <section>
-    <h3>请拖动滑动条根据说明选择你出现下列情况时的年龄</h3>
+    <h3>请{{actionName}}根据说明选择你出现下列情况时的年龄</h3>
     <fieldset>
       <legend>你开始接触该语言的年龄：</legend>
       <div class="slider-container">
@@ -41,7 +41,7 @@
   </section>
 
   <section>
-    <h3>请拖动滑动条根据说明选择你在每种语言环境中所度过的时间（总年数）：</h3>
+    <h3>请{{actionName}}根据说明选择你在每种语言环境中所度过的时间（总年数）：</h3>
     <fieldset>
       <legend>你在使用该语言的<strong>学校</strong>进行学习了多少年：</legend>
       <div class="slider-container">
@@ -92,6 +92,15 @@ export default {
   methods: {
     drag: function () {
       this.$emit('updated', _.clone(this.$data))
+    }
+  },
+  computed: {
+    actionName: function () {
+      if (window.document.body.clientWidth < 960) {
+        return '点击横条'
+      } else {
+        return '拖动滑动条'
+      }
     }
   },
   watch: {

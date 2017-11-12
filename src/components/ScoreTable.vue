@@ -42,10 +42,6 @@ export default {
   name: 'ScoreTable',
   props: ['languages'],
   data: function () {
-    const init = {}
-    _.each(this.languages, lang => {
-      init[lang.id] = 0
-    })
     return {
       levelLegends: ['无', '很差', '差', '勉强', '尚可', '一般', '较好', '良好', '很好', '优秀', '精通'],
       impactLegends: ['无影响', '最小影响', '微弱影响', '稍有影响', '较少影响', '一般影响', '较为影响', '特别影响', '很大影响', '巨大影响', '最重要影响'],
@@ -67,33 +63,33 @@ export default {
         social: '社交媒体（如QQ，微博，论坛等）'
       },
       level: {
-        speak: _.clone(init),
-        listen: _.clone(init),
-        read: _.clone(init)
+        speak: {},
+        listen: {},
+        read: {}
       },
       impact: {
-        family: _.clone(init),
-        friend: _.clone(init),
-        school: _.clone(init),
-        broadcast: _.clone(init),
-        read: _.clone(init),
-        tv: _.clone(init),
-        network: _.clone(init),
-        social: _.clone(init)
+        family: {},
+        friend: {},
+        school: {},
+        broadcast: {},
+        read: {},
+        tv: {},
+        network: {},
+        social: {}
       },
       touch: {
-        family: _.clone(init),
-        friend: _.clone(init),
-        school: _.clone(init),
-        broadcast: _.clone(init),
-        read: _.clone(init),
-        tv: _.clone(init),
-        network: _.clone(init),
-        social: _.clone(init)
+        family: {},
+        friend: {},
+        school: {},
+        broadcast: {},
+        read: {},
+        tv: {},
+        network: {},
+        social: {}
       },
       oral: {
-        speak: _.clone(init),
-        listen: _.clone(init)
+        speak: {},
+        listen: {}
       }
     }
   },
@@ -105,6 +101,44 @@ export default {
         touch: _.clone(this.touch),
         oral: _.clone(this.oral)
       })
+    }
+  },
+  watch: {
+    languages: function (languages) {
+      const init = {}
+      _.each(languages, lang => {
+        init[lang.id] = 0
+      })
+
+      this.level.speak = _.clone(init)
+      this.level.listen = _.clone(init)
+      this.level.read = _.clone(init)
+
+      this.impact.family = _.clone(init)
+      this.impact.friend = _.clone(init)
+      this.impact.school = _.clone(init)
+      this.impact.broadcast = _.clone(init)
+      this.impact.read = _.clone(init)
+      this.impact.tv = _.clone(init)
+      this.impact.network = _.clone(init)
+      this.impact.social = _.clone(init)
+
+      this.touch.family = _.clone(init)
+      this.touch.friend = _.clone(init)
+      this.touch.school = _.clone(init)
+      this.touch.broadcast = _.clone(init)
+      this.touch.read = _.clone(init)
+      this.touch.tv = _.clone(init)
+      this.touch.network = _.clone(init)
+      this.touch.social = _.clone(init)
+
+      const initOthers = {}
+      _.each(this.otherLanguages, lang => {
+        initOthers[lang.id] = 0
+      })
+      this.oral.speak = _.clone(initOthers)
+      this.oral.listen = _.clone(initOthers)
+      this.updated()
     }
   },
   computed: {

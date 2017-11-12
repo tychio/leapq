@@ -1,6 +1,6 @@
 <template>
   <div class="card-wrapper">
-    <p>请按照<strong>{{tip}}</strong>对下列语言进行排序（左边为最）</p>
+    <p>请按照<strong>{{tip}}</strong>对下列语言进行排序（{{isMobile ? '由上至下' : '左边为最'}}）</p>
     <Draggable v-model="sortedLanguages">
       <div class="card" v-for="lang in sortedLanguages" :key="lang.id">
         <Card>
@@ -23,7 +23,8 @@ export default {
   props: ['languages', 'tip'],
   data: function () {
     return {
-      sortedLanguages: this.languages
+      sortedLanguages: this.languages,
+      isMobile: window.document.body.clientWidth < 960
     }
   },
   watch: {

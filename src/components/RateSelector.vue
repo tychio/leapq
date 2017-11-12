@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3>请拖动滑动条按要求选择关于你所掌握语言的百分比</h3>
+    <h3>请{{actionName}}按要求选择关于你所掌握语言的百分比</h3>
     <rate-slicer
       v-if="languages.length"
       :sliders="languages"
@@ -63,6 +63,15 @@ export default {
     },
     update: function () {
       this.$emit('updated', this.results)
+    }
+  },
+  computed: {
+    actionName: function () {
+      if (window.document.body.clientWidth < 960) {
+        return '点击横条'
+      } else {
+        return '拖动滑动条'
+      }
     }
   },
   components: {

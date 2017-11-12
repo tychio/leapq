@@ -143,6 +143,8 @@ export default {
     next: function () {
       if (this.step === 1) {
         this.warning = this.validStep1()
+      } else if (this.step === 2) {
+        this.warning = this.validStep2()
       } else if (this.step === 3) {
         this.warning = this.validStep3()
       }
@@ -189,14 +191,14 @@ export default {
     updatedBilingual: function (bilingual) {
       this.bilingual = bilingual
     },
-    validate: function (names, data) {
+    validate: function (names, data, full) {
       return _.some(names, name => {
         const value = data[name]
         let isEmpty = false
         if (_.isDate(value)) {
           isEmpty = !(value > 0)
         } else if (_.isObject(value)) {
-          isEmpty = _.isEmpty(value)
+          isEmpty = full ? this.validateFull(value) : this.validateHave(value)
         } else {
           isEmpty = !value
         }
@@ -205,6 +207,12 @@ export default {
         }
         return isEmpty
       })
+    },
+    validateHave: function (value) {
+      return _.chain(value).map().sum().value() === 0
+    },
+    validateFull: function (items) {
+      return _.some(items, item => !item)
     },
     validStep1: function () {
       const invalid = this.validate([
@@ -227,6 +235,17 @@ export default {
         return '请至少选择你最擅长的 3 种语言'
       }
     },
+    validStep2: function () {
+      const invalid = this.validate([
+        'first',
+        'read',
+        'speak',
+        'write'
+      ], this.levelRates)
+      if (invalid) {
+        return '请对所有情况的百分比进行选择'
+      }
+    },
     validStep3: function () {
       const invalid = this.validate([
         'first',
@@ -246,7 +265,7 @@ export default {
         'speak',
         'listen',
         'read'
-      ], this.score.level)
+      ], this.score.level, true)
       const impactValid = this.validate([
         'family',
         'friend',
@@ -256,7 +275,7 @@ export default {
         'tv',
         'network',
         'social'
-      ], this.score.impact)
+      ], this.score.impact, true)
 
       const touchValid = this.validate([
         'family',
@@ -267,12 +286,12 @@ export default {
         'tv',
         'network',
         'social'
-      ], this.score.touch)
+      ], this.score.touch, true)
 
       const oralValid = this.validate([
         'speak',
         'listen'
-      ], this.score.oral)
+      ], this.score.oral, true)
       if (levelValid || impactValid || touchValid || oralValid) {
         return '请对所有条目进行评分'
       }

@@ -156,7 +156,7 @@ export default {
     submit: function () {
       this.warning = this.validStep4()
       if (!this.warning) {
-        axios.post('http://localhost:3000/questionary', {
+        axios.post(process.env.SERVER_URL.LEAPQ, {
           data: this.results
         }).then(response => {
           this.step = 5

@@ -48,9 +48,9 @@
       ></score-table>
     </section>
     <section v-show="step === 5">
-      <h3>提交成功，非常感谢！</h3>
+      <h3 class="center">提交成功，非常感谢！</h3>
     </section>
-    <div style="text-align: center;">
+    <div style="text-align: center;" v-if="step < 5">
       <transition name="fade">
         <Alert v-if="warning" type="warning" show-icon>
           {{warning}}
@@ -153,7 +153,7 @@ export default {
         axios.post('http://localhost:3000/questionary', {
           data: this.results
         }).then(response => {
-        }, response => {
+          this.step = 5
         })
       }
     },
@@ -289,6 +289,13 @@ main {
   width: 840px;
   margin: auto;
   font-size: 16px;
+}
+
+h3.center {
+  font-size: 48px;
+  color: #f38521;
+  text-align: center;
+  margin: 100px 0;
 }
 
 .fade-enter-active, .fade-leave-active {

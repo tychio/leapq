@@ -32,4 +32,17 @@ export default {
     padding-left: 50px;
     width: 150px;
   }
+
+
+  @media (max-width: 960px) {
+    .rate-label {
+      padding-left: 0;
+    }
+
+    .ivu-rate-text {
+      position: relative;
+      top: -57px;
+      right: -215px;
+    }
+  }
 </style>

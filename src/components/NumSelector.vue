@@ -79,23 +79,35 @@ export default {
   name: 'NumSelector',
   props: ['languages'],
   data: function () {
-    const init = {}
-    _.each(this.languages, lang => {
-      init[lang.id] = 0
-    })
     return {
-      first: _.clone(init),
-      study: _.clone(init),
-      speak: _.clone(init),
-      normal: _.clone(init),
-      school: _.clone(init),
-      home: _.clone(init),
-      community: _.clone(init)
+      first: {},
+      study: {},
+      speak: {},
+      normal: {},
+      school: {},
+      home: {},
+      community: {}
     }
   },
   methods: {
     drag: function () {
       this.$emit('updated', _.clone(this.$data))
+    }
+  },
+  watch: {
+    languages: function (languages) {
+      const init = {}
+      _.each(languages, lang => {
+        init[lang.id] = 0
+      })
+
+      this.first = _.clone(init)
+      this.study = _.clone(init)
+      this.speak = _.clone(init)
+      this.normal = _.clone(init)
+      this.school = _.clone(init)
+      this.home = _.clone(init)
+      this.community = _.clone(init)
     }
   }
 }

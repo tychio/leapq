@@ -286,7 +286,7 @@ export default {
 
 <style>
 main {
-  width: 840px;
+  max-width: 840px;
   margin: auto;
   font-size: 16px;
 }
@@ -303,6 +303,42 @@ h3.center {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0
+}
+
+@media (max-width: 960px) {
+  section {
+    padding: 4px 10px;
+  }
+  .ivu-form .ivu-form-item-label {
+    display: block;
+    float: none;
+    width: 100%;
+    text-align: left;
+    padding-left: 12px;
+  }
+
+  .ivu-form-item-content {
+    margin: 2px 20px!important;
+  }
+
+  .ivu-col-span-6,
+  .ivu-col-span-9,
+  .ivu-col-span-22 {
+    width: 100%!important;
+    margin-bottom: 10px;
+  }
+
+  .ivu-radio-inner {
+      height: 20px;
+      width: 20px;
+  }
+
+  .ivu-radio-inner:after {
+    width: 12px;
+    height: 12px;
+    top: 3px;
+    left: 3px;
+  }
 }
 </style>
 

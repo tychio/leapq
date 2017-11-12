@@ -57,4 +57,20 @@ export default {
 .card-wrapper {
   padding: 20px;
 }
+
+@media (max-width: 960px) {
+  .card {
+    overflow: hidden;
+    width: 100%;
+    margin: 10px 0;
+  }
+  .ivu-card-body {
+    position: relative;
+    top: -16px;
+    right: -100%;
+    padding: 0;
+    margin-top: -22px;
+    margin-left: -150px;
+  }
+}
 </style>

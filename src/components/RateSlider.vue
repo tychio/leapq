@@ -3,7 +3,8 @@
     <legend v-html="tip"></legend>
     <div class="slider-container" v-if="sliders.length">
       <template v-for="(slider, index) in sliders">
-        <label>{{slider.text}}({{results[slider.id]}}%):</label><Slider v-model="results[slider.id]" @input="drag(index)"></Slider>
+        <label>{{slider.text}}({{results[slider.id]}}%):</label>
+        <Slider v-model="results[slider.id]" @input="drag(index)" :step="5" show-stops></Slider>
       </template>
     </div>
   </fieldset>
@@ -80,5 +81,22 @@ legend {
 }
 .slider-container {
   padding: 10px 300px 10px 20px;
+}
+
+@media (max-width: 960px) {
+  .slider-container {
+    padding: 0;
+  }
+
+  .ivu-slider-bar,
+  .ivu-slider-stop,
+  .ivu-slider-wrap {
+    height: 16px;
+    border-radius: 0;
+  }
+
+  .ivu-slider-button {
+    display: none;
+  }
 }
 </style>

@@ -53,11 +53,10 @@ export default {
   methods: {
     drag: function () {
       const data = {
-        isBilingual: this.isBilingual
+        isBilingual: this.isBilingual,
+        languages: this.bilingualLanguages,
+        value: this.bilingualPeriod
       }
-      _.each(this.bilingualLanguages, langId => {
-        data[langId] = this.bilingualPeriod
-      })
       this.$emit('updated', data)
     }
   },

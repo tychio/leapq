@@ -66,10 +66,6 @@ export default {
         network: '网站（如新闻/视频网站等）',
         social: '社交媒体（如QQ，微博，论坛等）'
       },
-      oralNames: {
-        speak: '你感觉自己使用每种语言的口音有多重',
-        listen: this.oralName()
-      },
       level: {
         speak: _.clone(init),
         listen: _.clone(init),
@@ -102,11 +98,6 @@ export default {
     }
   },
   methods: {
-    oralName: function () {
-      const languagesText = _.map(this.languages, lang => lang.text)
-      const text = '他人根据你的口音，判断出你说的' + languagesText.slice(1).join('，') + '不是你的母语（' + languagesText[0] + '）的概率'
-      return text
-    },
     updated: function () {
       this.$emit('updated', {
         level: _.clone(this.level),
@@ -129,6 +120,14 @@ export default {
     },
     otherLanguages: function () {
       return this.languages.slice(1)
+    },
+    oralNames: function () {
+      const languagesText = _.map(this.languages, lang => lang.text)
+      const text = '他人根据你的口音，判断出你说的' + languagesText.slice(1).join('，') + '不是你的母语（' + languagesText[0] + '）的概率'
+      return {
+        speak: '你感觉自己使用每种语言的口音有多重',
+        listen: text
+      }
     }
   },
   components: {

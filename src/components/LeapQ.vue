@@ -34,23 +34,53 @@
         :languages="timeLanguages"
         @updated="updatedAge"
       ></num-selector>
-      <bilingual
-        :languages="timeLanguages"
-        :bilingual="bilingual"
-        @updated="updatedBilingual"
-      ></bilingual>
     </section>
     <section v-show="step === 4">
+      <bilingual
+        :languages="timeLanguages"
+        :bilingual="bilinguals.school"
+        @updated="updatedBilingual('school', $event)"
+        :text="{
+          is: '是否在双语班或双语学校进行过学习？',
+          explain: '双语班、双语学校指的是在学校的教学中会使用2种语言学习如物理、化学等文化课程。',
+          which: '请选出该学校使用的哪2种语言',
+          how: '你在双语学校学习了多少年'
+        }"
+      ></bilingual>
+      <bilingual
+        :languages="timeLanguages"
+        :bilingual="bilinguals.home"
+        @updated="updatedBilingual('home', $event)"
+        :text="{
+          is: '是否在家里使用过双语？',
+          explain: '例如在家与父母用维汉双语进行交流。',
+          which: '请选在家里使用的2种语言',
+          how: '你在家里使用双语多少年'
+        }"
+      ></bilingual>
+      <bilingual
+        :languages="timeLanguages"
+        :bilingual="bilinguals.community"
+        @updated="updatedBilingual('community', $event)"
+        :text="{
+          is: '是否在双语城市或社区生活过？',
+          explain: '例如乌鲁木齐市为维汉双语使用情况较多的城市。',
+          which: '请选出该城市或社区使用哪2种语言',
+          how: '你在双语城市或社区生活了多少年'
+        }"
+      ></bilingual>
+    </section>
+    <section v-show="step === 5">
       <h3>请根据说明对下列项目进行评分</h3>
       <score-table
         :languages="timeLanguages"
         @updated="updateScore"
       ></score-table>
     </section>
-    <section v-show="step === 5">
+    <section v-show="step === 6">
       <h3 class="center">提交成功，非常感谢！</h3>
     </section>
-    <div style="text-align: center;" v-if="step < 5">
+    <div style="text-align: center;" v-if="step < 6">
       <transition name="fade">
         <Alert v-if="warning" type="warning" show-icon>
           {{warning}}
@@ -58,11 +88,11 @@
         </Alert>
       </transition>
       <ButtonGroup shape="circle" size="large">
-        <Button @click="prev" type="default">
+        <Button @click="prev" type="default" v-if="step > 1">
           <Icon type="chevron-left"></Icon>
           <span>上一步</span>
         </Button>
-        <Button v-if="step < 4" @click="next" type="success">
+        <Button v-if="step < 5" @click="next" type="success">
           <span>下一步</span>
           <Icon type="chevron-right"></Icon>
         </Button>
@@ -117,7 +147,11 @@ export default {
       },
       levelBarriers: {},
       timeAges: {},
-      bilingual: {},
+      bilinguals: {
+        school: {},
+        home: {},
+        community: {}
+      },
       score: {},
       warning: ''
     }
@@ -137,7 +171,7 @@ export default {
         levelRates: this.levelRates,
         levelBarriers: this.levelBarriers,
         timeAges: this.timeAges,
-        bilingual: this.bilingual,
+        bilinguals: this.bilinguals,
         score: this.score
       }
     }
@@ -164,7 +198,7 @@ export default {
         axios.post(process.env.SERVER_URL.LEAPQ, {
           data: this.results
         }).then(response => {
-          this.step = 5
+          this.step = 6
         })
       }
     },
@@ -191,8 +225,8 @@ export default {
     updateScore: function (score) {
       this.score = score
     },
-    updatedBilingual: function (bilingual) {
-      this.bilingual = bilingual
+    updatedBilingual: function (name, bilingual) {
+      this.bilinguals[name] = bilingual
     },
     validate: function (names, data, full) {
       return _.some(names, name => {

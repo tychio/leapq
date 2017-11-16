@@ -43,8 +43,8 @@
   <section>
     <h3>请{{actionName}}根据说明选择你在每种语言环境中所度过的时间（总年数）：</h3>
     <fieldset>
-      <legend>你在<strong>学校</strong>使用该语言学习了多少年：</legend>
-      <p><i>例如：A同学，小学选择了维语民校学习6年，初中在维语民学校双语班3年，高中在内高班学习了3年。由于初中双语班有维语授课也有汉语授课，因此使用维语学习为6年加3年，共<strong>9年</strong>维语学习时间；而初中双语班汉语授课3年加上高中为汉语授课3年，总共使用汉语学习为<strong>6年</strong>；虽然在初、高中阶段有英语课，但学校并不适用英语，因此英语学习为<strong>0年</strong>。B同学，小学到高中均选择了维语民校进行学习，并且期间没有上过双语班，那么他的维语学习时间为<strong>12年</strong>，汉语和英语均为<strong>0年</strong></i></p>
+      <legend>你在使用该语言的<strong>学校</strong>学习了多少年：</legend>
+      <p><i>例如：A同学，小学选择了维语民校学习6年，初中在维语民学校双语班3年，高中在内高班学习了3年。由于初中双语班有维语授课也有汉语授课，因此使用维语学习为6年加3年，共<strong>9年</strong>维语学习时间；而初中双语班汉语授课3年，高中内高班为汉语学校，总共使用汉语学习为<strong>6年</strong>；虽然在初、高中阶段有英语课，但学校并未用英语授课，因此英语学习为<strong>0年</strong>。</i></p>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{school[lang.id]}}年）:</label>

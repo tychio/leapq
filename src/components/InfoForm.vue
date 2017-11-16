@@ -24,11 +24,25 @@
 
     <FormItem label="性别">
       <Row :gutter="16">
-        <Col span="22">
+        <Col span="18">
           <RadioGroup style="float: left;" v-model="info.gender">
             <Radio label="0">男</Radio>
             <Radio label="1">女</Radio>
           </RadioGroup>
+        </Col>
+      </Row>
+    </FormItem>
+
+    <FormItem label="民族和籍贯">
+      <Row :gutter="16">
+        <Col span="6">
+          <Input v-model="info.nation" placeholder="民族"></Input>
+        </Col>
+        <Col span="6">
+          <Input v-model="info.province" placeholder="省份"></Input>
+        </Col>
+        <Col span="6">
+          <Input v-model="info.city" placeholder="城市"></Input>
         </Col>
       </Row>
     </FormItem>
@@ -70,11 +84,15 @@
     </FormItem>
 
     <FormItem label="学习/使用过的语言(最多5个)">
-      <Select v-model="languages" multiple style="width:260px">
-        <Option v-for="item in candiateLanguages" :value="item.id" :key="item.text">
-          <span>{{ item.text }}</span>
-        </Option>
-      </Select>
+      <Row :gutter="16">
+        <Col span="6">
+          <Select v-model="languages" multiple style="width:260px">
+            <Option v-for="item in candiateLanguages" :value="item.id" :key="item.text">
+              <span>{{ item.text }}</span>
+            </Option>
+          </Select>
+        </Col>
+      </Row>
     </FormItem>
   </Form>
 </template>

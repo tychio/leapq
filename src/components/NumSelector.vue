@@ -21,7 +21,7 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend>该语言第一次被用作<strong>教学语言</strong>时，你的年龄：（例如，老师用汉语上语文课）</legend>
+      <legend>该语言第一次被用作<strong>教学语言</strong>时，你的年龄：（例如，老师用汉语上汉语课）</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{speak[lang.id]}}岁）:</label>
@@ -43,7 +43,8 @@
   <section>
     <h3>请{{actionName}}根据说明选择你在每种语言环境中所度过的时间（总年数）：</h3>
     <fieldset>
-      <legend>你在使用该语言的<strong>学校</strong>进行学习了多少年：</legend>
+      <legend>你在<strong>学校</strong>使用该语言学习了多少年：</legend>
+      <p><i>例如：A同学，小学选择了维语民校学习6年，初中在维语民学校双语班3年，高中在内高班学习了3年。由于初中双语班有维语授课也有汉语授课，因此使用维语学习为6年加3年，共<strong>9年</strong>维语学习时间；而初中双语班汉语授课3年加上高中为汉语授课3年，总共使用汉语学习为<strong>6年</strong>；虽然在初、高中阶段有英语课，但学校并不适用英语，因此英语学习为<strong>0年</strong>。B同学，小学到高中均选择了维语民校进行学习，并且期间没有上过双语班，那么他的维语学习时间为<strong>12年</strong>，汉语和英语均为<strong>0年</strong></i></p>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{school[lang.id]}}年）:</label>
@@ -62,6 +63,7 @@
     </fieldset>
     <fieldset>
       <legend>你在使用该语言的<strong>城市或社区</strong>生活了多少年：</legend>
+      <p><i>例如：A同学从出生到12岁之前都住在喀什市，后来搬到乌鲁木齐市居住了6年，接着到西安读大学，刚刚2年。喀什市以维语为主，西安以汉语为主，而乌鲁木齐市双语皆有，那么他在维语城市的生活时间应该是12年喀什生活加上6年乌鲁木齐生活，也就是<strong>18年</strong>维语生活；而汉语生活则是，乌鲁木齐6年加上西安2年的<strong>8年</strong>汉语生活。</i></p>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{community[lang.id]}}年）:</label>

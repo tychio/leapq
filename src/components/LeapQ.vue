@@ -187,6 +187,9 @@ export default {
       }
       if (!this.warning) {
         this.step = this.step + 1
+        window.location.hash = ''
+        window.location.hash = 'app'
+        window.location.hash = ''
       }
     },
     prev: function () {

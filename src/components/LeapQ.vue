@@ -36,6 +36,7 @@
       ></num-selector>
     </section>
     <section v-show="step === 4">
+      <h3>若存在双语环境，请填写各环境下的语言经历</h3>
       <bilingual
         :languages="timeLanguages"
         :bilingual="bilinguals.school"

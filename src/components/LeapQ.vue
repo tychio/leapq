@@ -3,17 +3,26 @@
     <section v-show="step === 1" >
       <info-form
         :info="info"
-        :selectedLanguages="languages"
-        @updated="updatedLanguages"
       ></info-form>
     </section>
 
     <section v-show="step === 2">
+      <language-selector
+        :selectedLanguages="languages"
+        @updated="updatedLanguages">
+      </language-selector>
       <language-sortable
         :languages="levelLanguages"
         :tip="'掌握程度最好的语言开始'"
         @sorted="sortByLevel"
       ></language-sortable>
+      <language-sortable
+        :languages="timeLanguages"
+        :tip="'语言学习的时间先后顺序'"
+        @sorted="sortByTime"
+      ></language-sortable>
+    </section>
+    <section v-show="step === 3">
       <rate-selector
         :languages="levelLanguages"
         @updated="updatedRates"
@@ -24,18 +33,13 @@
       ></check-list>
     </section>
 
-    <section v-show="step === 3">
-      <language-sortable
-        :languages="timeLanguages"
-        :tip="'语言学习的时间先后顺序'"
-        @sorted="sortByTime"
-      ></language-sortable>
+    <section v-show="step === 4">
       <num-selector
         :languages="timeLanguages"
         @updated="updatedAge"
       ></num-selector>
     </section>
-    <section v-show="step === 4">
+    <section v-show="step === 5">
       <h3>若存在双语环境，请填写各环境下的语言经历</h3>
       <bilingual
         :languages="timeLanguages"
@@ -71,17 +75,17 @@
         }"
       ></bilingual>
     </section>
-    <section v-show="step === 5">
+    <section v-show="step === 6">
       <h3>请根据说明对下列项目进行评分</h3>
       <score-table
         :languages="timeLanguages"
         @updated="updateScore"
       ></score-table>
     </section>
-    <section v-show="step === 6">
+    <section v-show="step === 7">
       <h3 class="center">提交成功，非常感谢！</h3>
     </section>
-    <div style="text-align: center;" v-if="step < 6">
+    <div style="text-align: center;" v-if="step < 7">
       <transition name="fade">
         <Alert v-if="warning" type="warning" show-icon>
           {{warning}}
@@ -93,7 +97,7 @@
           <Icon type="chevron-left"></Icon>
           <span>上一步</span>
         </Button>
-        <Button v-if="step < 5" @click="next" type="success">
+        <Button v-if="step < 6" @click="next" type="success">
           <span>下一步</span>
           <Icon type="chevron-right"></Icon>
         </Button>
@@ -107,6 +111,7 @@
 import axios from 'axios'
 import InfoForm from './InfoForm'
 import LanguageSortable from './LanguageSortable'
+import LanguageSelector from './LanguageSelector'
 import RateSelector from './RateSelector'
 import NumSelector from './NumSelector'
 import CheckList from './CheckList'
@@ -180,12 +185,14 @@ export default {
   methods: {
     next: function () {
       if (this.step === 1) {
-        this.warning = this.validStep1()
+        this.warning = this.validInfo()
       } else if (this.step === 2) {
-        this.warning = this.validStep2()
+        this.warning = this.validLanguages()
       } else if (this.step === 3) {
-        this.warning = this.validStep3()
+        this.warning = this.validPercent()
       } else if (this.step === 4) {
+        this.warning = this.validNumber()
+      } else if (this.step === 5) {
         this.warning = this.validBilingual()
       }
       if (!this.warning) {
@@ -204,7 +211,7 @@ export default {
         axios.post(process.env.SERVER_URL.LEAPQ, {
           data: this.results
         }).then(response => {
-          this.step = 6
+          this.step = 7
         })
       }
     },
@@ -257,7 +264,7 @@ export default {
     validateFull: function (items) {
       return _.some(items, item => !item)
     },
-    validStep1: function () {
+    validInfo: function () {
       const invalid = this.validate([
         'lastname',
         'firstname',
@@ -275,12 +282,13 @@ export default {
       if (invalid) {
         return '请完整填写表单。'
       }
-
+    },
+    validLanguages: function () {
       if (this.languages.length < 3) {
         return '请至少选择你最擅长的 3 种语言'
       }
     },
-    validStep2: function () {
+    validPercent: function () {
       const invalid = this.validate([
         'first',
         'read',
@@ -291,7 +299,7 @@ export default {
         return '请对所有情况的百分比进行选择'
       }
     },
-    validStep3: function () {
+    validNumber: function () {
       const invalid = this.validate([
         'first',
         'study',
@@ -361,6 +369,7 @@ export default {
   components: {
     'info-form': InfoForm,
     'language-sortable': LanguageSortable,
+    'language-selector': LanguageSelector,
     'rate-selector': RateSelector,
     'num-selector': NumSelector,
     'check-list': CheckList,

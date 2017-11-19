@@ -6,8 +6,12 @@
       <legend>你开始接触该语言的年龄：</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
-          <label>{{lang.text}}（{{first[lang.id]}}岁）:</label>
-          <Slider v-model="first[lang.id]" :min="0" :max="30"></Slider>
+          <label>{{lang.text}}
+            <template v-if="first[lang.id] >= 0">（{{first[lang.id]}}岁）
+            </template>
+            <template v-else>（无此语言经历）</template>
+          :</label>
+          <Slider v-model="first[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
         </template>
       </div>
     </fieldset>
@@ -15,8 +19,12 @@
       <legend>你在学校正式学习该语言的年龄：</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
-          <label>{{lang.text}}（{{study[lang.id]}}岁）:</label>
-          <Slider v-model="study[lang.id]" :min="0" :max="30"></Slider>
+          <label>{{lang.text}}
+            <template v-if="study[lang.id] >= 0">（{{study[lang.id]}}岁）
+            </template>
+            <template v-else>（无此语言经历）</template>
+          :</label>
+          <Slider v-model="study[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
         </template>
       </div>
     </fieldset>
@@ -24,8 +32,13 @@
       <legend>该语言第一次被用作<strong>教学语言</strong>时，你的年龄：（例如，老师用汉语上汉语课；用英语上英语课）</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
-          <label>{{lang.text}}（{{speak[lang.id]}}岁）:</label>
-          <Slider v-model="speak[lang.id]" :min="0" :max="30"></Slider>
+
+          <label>{{lang.text}}
+            <template v-if="speak[lang.id] >= 0">（{{speak[lang.id]}}岁）
+            </template>
+            <template v-else>（无此语言经历）</template>
+          :</label>
+          <Slider v-model="speak[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
         </template>
       </div>
     </fieldset>
@@ -33,8 +46,12 @@
       <legend>该语言第一次被用来教学<strong>非语言科目</strong>时，你的年龄：（例如，老师用汉语上数学、物理、化学等课程）</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
-          <label>{{lang.text}}（{{normal[lang.id]}}岁）:</label>
-          <Slider v-model="normal[lang.id]" :min="0" :max="30"></Slider>
+          <label>{{lang.text}}
+            <template v-if="normal[lang.id] >= 0">（{{normal[lang.id]}}岁）
+            </template>
+            <template v-else>（无此语言经历）</template>
+          :</label>
+          <Slider v-model="normal[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
         </template>
       </div>
     </fieldset>
@@ -95,12 +112,15 @@ export default {
     drag: function () {
       this.$emit('updated', _.clone(this.$data))
     },
-    init: function (languages, original) {
+    init: function (languages, original, defaultValue) {
       const init = {}
       _.each(languages, language => {
-        init[language.id] = original[language.id] || 0
+        init[language.id] = original[language.id] || defaultValue || 0
       })
       return init
+    },
+    tipText: function (age) {
+      return age >= 0 ? age : '无'
     }
   },
   computed: {
@@ -114,10 +134,10 @@ export default {
   },
   watch: {
     languages: function () {
-      this.first = this.init(this.languages, this.first)
-      this.study = this.init(this.languages, this.study)
-      this.speak = this.init(this.languages, this.speak)
-      this.normal = this.init(this.languages, this.normal)
+      this.first = this.init(this.languages, this.first, -1)
+      this.study = this.init(this.languages, this.study, -1)
+      this.speak = this.init(this.languages, this.speak, -1)
+      this.normal = this.init(this.languages, this.normal, -1)
       this.school = this.init(this.languages, this.school)
       this.home = this.init(this.languages, this.home)
       this.community = this.init(this.languages, this.community)

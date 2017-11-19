@@ -33,6 +33,11 @@ export default {
     width: 150px;
   }
 
+  .ivu-rate-star {
+    width: 30px;
+    margin: 0;
+  }
+
 
   @media (max-width: 960px) {
     .rate-label {

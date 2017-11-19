@@ -54,6 +54,9 @@ export default {
   width: 20%;
   padding: 0 8px;
   cursor: move;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 .card-wrapper {
   padding: 20px 0;

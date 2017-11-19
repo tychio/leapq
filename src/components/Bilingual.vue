@@ -20,7 +20,9 @@
       <legend>{{text.how}}：</legend>
       <div class="slider-container">
         <label>双语（{{bilingualPeriod}}年）:</label>
-        <Slider @input="drag" v-model="bilingualPeriod" :min="0" :max="30"></Slider>
+        <v-touch @panstart="pan = true" @panmove="panmove" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+          <Slider ref="slider" @input="drag" v-model="bilingualPeriod" :min="0" :max="30"></Slider>
+        </v-touch>
       </div>
     </div>
   </fieldset>
@@ -36,7 +38,8 @@ export default {
     return {
       isBilingual: this.bilingual.isBilingual,
       bilingualLanguages: _.keys(this.bilingual),
-      bilingualPeriod: this.bilingual[_.keys(this.bilingual)[0]]
+      bilingualPeriod: this.bilingual[_.keys(this.bilingual)[0]],
+      pan: null
     }
   },
   methods: {
@@ -47,6 +50,16 @@ export default {
         value: this.bilingualPeriod
       }
       this.$emit('updated', data)
+    },
+    panmove: function (event) {
+      if (this.pan) {
+        const pos = event.center.x - this.$refs.slider.$el.offsetLeft
+        let rate = pos / this.$refs.slider.$el.offsetWidth
+        rate = rate > 1 ? 1 : rate
+        let value = _.round(rate * 30)
+        this.bilingualPeriod = value > 0 ? value : 0
+        this.drag()
+      }
     }
   },
   watch: {

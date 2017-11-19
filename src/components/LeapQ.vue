@@ -185,6 +185,8 @@ export default {
         this.warning = this.validStep2()
       } else if (this.step === 3) {
         this.warning = this.validStep3()
+      } else if (this.step === 4) {
+        this.warning = this.validBilingual()
       }
       if (!this.warning) {
         this.step = this.step + 1
@@ -197,7 +199,7 @@ export default {
       this.step = (this.step - 1) || 1
     },
     submit: function () {
-      this.warning = this.validStep4()
+      this.warning = this.validScore()
       if (!this.warning) {
         axios.post(process.env.SERVER_URL.LEAPQ, {
           data: this.results
@@ -303,7 +305,23 @@ export default {
         return '还有没有选择的条目'
       }
     },
-    validStep4: function () {
+    validBilingual: function () {
+      const invalid = _.some(this.bilinguals, bilingual => {
+        const isNot = !bilingual.isBilingual
+        if (isNot) {
+          return false
+        } else {
+          const languagesUnenough = bilingual.languages && (bilingual.languages.length !== 2)
+          const unknownPeriod = !(bilingual.value > 0)
+          return languagesUnenough || unknownPeriod
+        }
+      })
+
+      if (invalid) {
+        return '若存在双语环境，请完整填写2种语言及时间'
+      }
+    },
+    validScore: function () {
       const levelValid = this.validate([
         'speak',
         'listen',

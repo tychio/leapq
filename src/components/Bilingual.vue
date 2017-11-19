@@ -54,12 +54,14 @@ export default {
       if (langs.length >= 2) {
         this.bilingualLanguages.length = 2
       }
+      this.drag()
     },
     isBilingual: function (is) {
       if (!is) {
         this.bilingualLanguages = []
         this.bilingualPeriod = 0
       }
+      this.drag()
     }
   }
 }

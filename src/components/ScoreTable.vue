@@ -17,7 +17,7 @@
     @updated="updated"
   ></score-section>
   <score-section
-    :title="'根据下列语言环境对你每种语言的出现频率进行评分'"
+    :title="'根据下列语言环境对你每种语言的使用频率进行评分'"
     :section="touch"
     :names="touchNames"
     :languages="languages"
@@ -149,7 +149,7 @@ export default {
     },
     touchNames: function () {
       var names = _.clone(this.contextNames)
-      names.suffix = '语境中出现该语言的频率'
+      names.suffix = '语境中使用该语言的频率'
       return names
     },
     otherLanguages: function () {

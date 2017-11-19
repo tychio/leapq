@@ -203,6 +203,7 @@ export default {
       }
     },
     prev: function () {
+      this.warning = ''
       this.step = (this.step - 1) || 1
     },
     submit: function () {

@@ -24,9 +24,10 @@ export default {
   },
   watch: {
     sliders: function () {
+      const copyResults = _.clone(this.results)
       this.results = {}
       _.each(this.sliders, slider => {
-        this.results[slider.id] = 0
+        this.results[slider.id] = copyResults[slider.id] || 0
         this.updatedResults()
         this.noInput = false
       })

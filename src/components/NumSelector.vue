@@ -94,6 +94,13 @@ export default {
   methods: {
     drag: function () {
       this.$emit('updated', _.clone(this.$data))
+    },
+    init: function (languages, original) {
+      const init = {}
+      _.each(languages, language => {
+        init[language.id] = original[language.id] || 0
+      })
+      return init
     }
   },
   computed: {
@@ -106,19 +113,14 @@ export default {
     }
   },
   watch: {
-    languages: function (languages) {
-      const init = {}
-      _.each(languages, lang => {
-        init[lang.id] = 0
-      })
-
-      this.first = _.clone(init)
-      this.study = _.clone(init)
-      this.speak = _.clone(init)
-      this.normal = _.clone(init)
-      this.school = _.clone(init)
-      this.home = _.clone(init)
-      this.community = _.clone(init)
+    languages: function () {
+      this.first = this.init(this.languages, this.first)
+      this.study = this.init(this.languages, this.study)
+      this.speak = this.init(this.languages, this.speak)
+      this.normal = this.init(this.languages, this.normal)
+      this.school = this.init(this.languages, this.school)
+      this.home = this.init(this.languages, this.home)
+      this.community = this.init(this.languages, this.community)
     }
   }
 }

@@ -22,6 +22,18 @@ export default {
   name: 'app',
   components: {
     leapq: LeapQ
+  },
+  mounted: function () {
+    window.onbeforeunload = function (e) {
+      const message = '是否确认关闭当前窗口？'
+      e = e || window.event
+      // For IE and Firefox
+      if (e) {
+        e.returnValue = message
+      }
+      // For Safari
+      return message
+    }
   }
 }
 </script>

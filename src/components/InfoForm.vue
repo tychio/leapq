@@ -110,6 +110,7 @@ export default {
         { id: 'uyghur', text: '维吾尔语' },
         { id: 'english', text: '英语' },
         { id: 'kazakh', text: '哈萨克语' },
+        { id: 'turkey', text: '土耳其语' },
         { id: 'japanese', text: '日语' },
         { id: 'korean', text: '韩语/朝鲜语' },
         { id: 'french', text: '法语' },

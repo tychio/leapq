@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div v-show="showSlogon">
+    <div class="slogon" v-show="showSlogon">
       <p>你好， 同学！</p>
       <p>非常感谢你能填写调查问卷，参与到我们语言研究团队的调研工作中。</p>
       <p>请依照你个人语言经历和水平，填写真实有效的信息。研究人员会根据你提供的语言经历数据，筛选出能进入下一步有偿实验环节的候选人，届时我们将通过你填写的联系方式（微信或手机号）与你联系。</p>
@@ -430,6 +430,11 @@ h3.center {
   section {
     padding: 4px 10px;
   }
+
+  .slogon, .ivu-steps {
+    padding: 10px 20px;
+  }
+
   .ivu-form .ivu-form-item-label {
     display: block;
     float: none;
@@ -459,6 +464,10 @@ h3.center {
     height: 12px;
     top: 3px;
     left: 3px;
+  }
+
+  .ivu-steps-content {
+    display: none;
   }
 }
 </style>

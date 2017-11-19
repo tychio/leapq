@@ -44,10 +44,19 @@ export default {
       padding-left: 0;
     }
 
-    .ivu-rate-text {
+    .ivu-rate {
       position: relative;
-      top: -57px;
-      right: -215px;
+      width: 100%;
+    }
+
+    .ivu-rate-star {
+      width: 9%;
+    }
+
+    .ivu-rate-text {
+      position: absolute;
+      top: -20px;
+      right: 0;
     }
   }
 </style>

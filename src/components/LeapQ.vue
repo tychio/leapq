@@ -1,5 +1,10 @@
 <template>
   <main>
+    <div v-show="showSlogon">
+      <p>你好， 同学！</p>
+      <p>非常感谢你能填写调查问卷，参与到我们语言研究团队的调研工作中。</p>
+      <p>请依照你个人语言经历和水平，填写真实有效的信息。研究人员会根据你提供的语言经历数据，筛选出能进入下一步有偿实验环节的候选人，届时我们将通过你填写的联系方式（微信或手机号）与你联系。</p>
+    </div>
     <Steps :current="step - 1">
         <Step title="个人信息" content="填写包括联系方式的个人信息"></Step>
         <Step title="排列语言" content="选择所学语言并对其排序"></Step>
@@ -189,6 +194,9 @@ export default {
         bilinguals: this.bilinguals,
         score: this.score
       }
+    },
+    showSlogon: function () {
+      return this.step === 1 && ((new Date()).getFullYear()) < 2018
     }
   },
   methods: {

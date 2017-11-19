@@ -11,7 +11,7 @@
     <section v-show="step === 2">
       <language-sortable
         :languages="levelLanguages"
-        :tip="'掌握程度'"
+        :tip="'掌握程度最好的语言开始'"
         @sorted="sortByLevel"
       ></language-sortable>
       <rate-selector
@@ -27,7 +27,7 @@
     <section v-show="step === 3">
       <language-sortable
         :languages="timeLanguages"
-        :tip="'学习语言的时间先后顺序'"
+        :tip="'语言学习的时间先后顺序'"
         @sorted="sortByTime"
       ></language-sortable>
       <num-selector

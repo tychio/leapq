@@ -1,6 +1,6 @@
 <template>
   <div class="card-wrapper">
-    <p>请按照<strong>{{tip}}</strong>对下列语言进行排序（{{isMobile ? '由上至下' : '左边为最'}}）</p>
+    <h2>请{{isMobile ? '由上至下' : '由左至右'}}，按照你<strong>{{tip}}</strong>排列出下列语言</h2>
     <Draggable v-model="sortedLanguages">
       <div class="card" v-for="lang in sortedLanguages" :key="lang.id">
         <Card>
@@ -56,7 +56,12 @@ export default {
   cursor: move;
 }
 .card-wrapper {
-  padding: 20px;
+  padding: 20px 0;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: normal;
 }
 
 @media (max-width: 960px) {

@@ -89,12 +89,22 @@
 export default {
   name: 'InfoForm',
   props: ['info'],
-  watch: {
-    'info.birthday': function (birthday) {
-      const today = (new Date()).setHours(0)
-      const ageMS = today - birthday
-      this.info.age = (new Date(ageMS)).getYear() - 70
+  methods: {
+    calcAge: function () {
+      if (this.info) {
+        const today = (new Date()).setHours(0)
+        const ageMS = today - this.info.birthday
+        this.info.age = (new Date(ageMS)).getYear() - 70
+      }
     }
+  },
+  watch: {
+    'info.birthday': function () {
+      this.calcAge()
+    }
+  },
+  mounted: function () {
+    this.calcAge()
   }
 }
 </script>

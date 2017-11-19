@@ -21,7 +21,7 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend>该语言第一次被用作<strong>教学语言</strong>时，你的年龄：（例如，老师用汉语上汉语课）</legend>
+      <legend>该语言第一次被用作<strong>教学语言</strong>时，你的年龄：（例如，老师用汉语上汉语课；用英语上英语课）</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{speak[lang.id]}}岁）:</label>
@@ -30,7 +30,7 @@
       </div>
     </fieldset>
     <fieldset>
-      <legend>该语言第一次被用来教学<strong>非语言科目</strong>时，你的年龄：（例如，老师用汉语上数学、物理等课程）</legend>
+      <legend>该语言第一次被用来教学<strong>非语言科目</strong>时，你的年龄：（例如，老师用汉语上数学、物理、化学等课程）</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}（{{normal[lang.id]}}岁）:</label>

@@ -251,8 +251,8 @@ export default {
         return isEmpty
       })
     },
-    validateHave: function (value) {
-      return _.chain(value).map().sum().value() === 0
+    validateHave: function (items) {
+      return !_.some(items, item => item > 0)
     },
     validateFull: function (items) {
       return _.some(items, item => !item)

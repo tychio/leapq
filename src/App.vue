@@ -5,12 +5,12 @@
     </header>
     <leapq/>
     <footer>
-      <ul>
-        <li><a href="http://www.vub.ac.be/" target="_blank">Vrije Universiteit Brussel</a></li>
-      </ul>
       <p>改编自<strong>西北双语和心理语言研究实验室</strong></p>
       <p>玛丽安，布鲁莫菲尔德，及考山斯卡娅2007版的LEAP-Q</p>
       <p>改编者 吴蕊霖 布鲁塞尔自由大学</p>
+      <ul>
+        <li><a href="http://www.vub.ac.be/" target="_blank">Vrije Universiteit Brussel</a></li>
+      </ul>
     </footer>
   </div>
 </template>
@@ -38,6 +38,7 @@ export default {
 header, footer {
   text-align: center;
   font-weight: normal;
+  padding: 20px 0;
 }
 
 header {

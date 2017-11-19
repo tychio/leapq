@@ -377,6 +377,10 @@ main {
   font-size: 16px;
 }
 
+h3 {
+  font-weight: normal;
+}
+
 h3.center {
   font-size: 48px;
   color: #f38521;

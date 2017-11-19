@@ -4,7 +4,9 @@
     <div class="slider-container" v-if="sliders.length">
       <template v-for="(slider, index) in sliders">
         <label>{{slider.text}}({{results[slider.id]}}%):</label>
-        <Slider v-model="results[slider.id]" @input="drag(index)" :step="5" show-stops></Slider>
+        <v-touch @panstart="pan = slider.id" @panmove="panmove($event, index)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+          <Slider ref="slider" v-model="results[slider.id]" @input="drag(index)" :step="5" show-stops></Slider>
+        </v-touch>
       </template>
     </div>
   </fieldset>
@@ -19,7 +21,8 @@ export default {
   data: function () {
     return {
       results: {},
-      noInput: true
+      noInput: true,
+      pan: null
     }
   },
   watch: {
@@ -34,6 +37,16 @@ export default {
     }
   },
   methods: {
+    panmove: function (event, index) {
+      if (this.pan) {
+        let pos = event.center.x - this.$refs.slider[0].$el.offsetLeft
+        pos = pos > 0 ? pos : 0
+        let rate = pos / this.$refs.slider[0].$el.offsetWidth
+        rate = rate > 1 ? 1 : rate
+        this.results[this.pan] = _.round(rate * 100)
+        this.drag(index)
+      }
+    },
     drag: function (index) {
       if (this.noInput) {
         return

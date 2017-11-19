@@ -1,5 +1,14 @@
 <template>
   <main>
+    <Steps :current="step - 1">
+        <Step title="个人信息" content="填写包括联系方式的个人信息"></Step>
+        <Step title="排列语言" content="选择所学语言并对其排序"></Step>
+        <Step title="语言使用" content="各语言使用频率"></Step>
+        <Step title="语言经历" content="各语言不同情况的经历"></Step>
+        <Step title="双语情况" content="若存在，填写在不同场景中的双语经历"></Step>
+        <Step title="语言自评" content="针对自身语言在不同场景和条件下的语言能力进行评分"></Step>
+        <Step title="完成问卷" content=""></Step>
+    </Steps>
     <section v-show="step === 1" >
       <info-form
         :info="info"
@@ -403,6 +412,10 @@ h3.center {
 }
 .fade-enter, .fade-leave-to {
   opacity: 0
+}
+
+.ivu-steps {
+  padding: 20px 0;
 }
 
 @media (max-width: 960px) {

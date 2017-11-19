@@ -7,11 +7,14 @@
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}
-            <template v-if="first[lang.id] >= 0">（{{first[lang.id]}}岁）
+            <template v-if="results.first[lang.id] >= 0">（{{results.first[lang.id]}}岁）
             </template>
             <template v-else>（无此语言经历）</template>
           :</label>
-          <Slider v-model="first[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+
+          <v-touch @panstart="pan = 'first_' + lang.id" @panmove="panmove($event, 31)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+            <Slider ref="slider" @input="drag" v-model="results.first[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+          </v-touch>
         </template>
       </div>
     </fieldset>
@@ -20,11 +23,14 @@
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}
-            <template v-if="study[lang.id] >= 0">（{{study[lang.id]}}岁）
+            <template v-if="results.study[lang.id] >= 0">（{{results.study[lang.id]}}岁）
             </template>
             <template v-else>（无此语言经历）</template>
           :</label>
-          <Slider v-model="study[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+
+          <v-touch @panstart="pan = 'study_' + lang.id" @panmove="panmove($event, 31)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+            <Slider ref="slider" @input="drag" v-model="results.study[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+          </v-touch>
         </template>
       </div>
     </fieldset>
@@ -34,11 +40,14 @@
         <template v-for="(lang, index) in languages">
 
           <label>{{lang.text}}
-            <template v-if="speak[lang.id] >= 0">（{{speak[lang.id]}}岁）
+            <template v-if="results.speak[lang.id] >= 0">（{{results.speak[lang.id]}}岁）
             </template>
             <template v-else>（无此语言经历）</template>
           :</label>
-          <Slider v-model="speak[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+
+          <v-touch @panstart="pan = 'speak_' + lang.id" @panmove="panmove($event, 31)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+            <Slider ref="slider" @input="drag" v-model="results.speak[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+          </v-touch>
         </template>
       </div>
     </fieldset>
@@ -47,11 +56,14 @@
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
           <label>{{lang.text}}
-            <template v-if="normal[lang.id] >= 0">（{{normal[lang.id]}}岁）
+            <template v-if="results.normal[lang.id] >= 0">（{{results.normal[lang.id]}}岁）
             </template>
             <template v-else>（无此语言经历）</template>
           :</label>
-          <Slider v-model="normal[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+
+          <v-touch @panstart="pan = 'normal_' + lang.id" @panmove="panmove($event, 31)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+            <Slider ref="slider" @input="drag" v-model="results.normal[lang.id]" :min="-1" :max="30" :tip-format="tipText"></Slider>
+          </v-touch>
         </template>
       </div>
     </fieldset>
@@ -64,8 +76,10 @@
       <p><i>例如：A同学，小学选择了维语民校学习6年，初中在维语民学校双语班3年，高中在内高班学习了3年，然后大学到海外留学了1年。由于初中双语班有维语授课也有汉语授课，因此使用维语学习为6年加3年，共<strong>9年</strong>维语学习时间；而初中双语班汉语授课3年，高中内高班为汉语学校，总共使用汉语学习为<strong>6年</strong>；虽然在初、高中阶段有英语课，但学校并未用英语授课，只有留学期间是英语授课，因此英语学习为<strong>1年</strong>。</i></p>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
-          <label>{{lang.text}}（{{school[lang.id]}}年）:</label>
-          <Slider v-model="school[lang.id]" :min="0" :max="30"></Slider>
+          <label>{{lang.text}}（{{results.school[lang.id]}}年）:</label>
+          <v-touch @panstart="pan = 'school_' + lang.id" @panmove="panmove($event, 30)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+            <Slider ref="slider" @input="drag" v-model="results.school[lang.id]" :min="0" :max="30"></Slider>
+          </v-touch>
         </template>
       </div>
     </fieldset>
@@ -73,8 +87,10 @@
       <legend>你在<strong>家里</strong>使用该语言有多少年：</legend>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
-          <label>{{lang.text}}（{{home[lang.id]}}年）:</label>
-          <Slider @input="drag" v-model="home[lang.id]" :min="0" :max="30"></Slider>
+          <label>{{lang.text}}（{{results.home[lang.id]}}年）:</label>
+          <v-touch @panstart="pan = 'home_' + lang.id" @panmove="panmove($event, 30)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+            <Slider ref="slider" @input="drag" v-model="results.home[lang.id]" :min="0" :max="30"></Slider>
+          </v-touch>
         </template>
       </div>
     </fieldset>
@@ -83,8 +99,10 @@
       <p><i>例如：A同学从出生到12岁之前都住在喀什市，后来搬到乌鲁木齐市居住了6年，接着到西安读大学，刚刚2年。喀什市以维语为主，西安以汉语为主，而乌鲁木齐市双语皆有，那么他在维语城市的生活时间应该是12年喀什生活加上6年乌鲁木齐生活，也就是<strong>18年</strong>维语生活；而汉语生活则是，乌鲁木齐6年加上西安2年的<strong>8年</strong>汉语生活。</i></p>
       <div class="slider-container">
         <template v-for="(lang, index) in languages">
-          <label>{{lang.text}}（{{community[lang.id]}}年）:</label>
-          <Slider @input="drag" v-model="community[lang.id]" :min="0" :max="30"></Slider>
+          <label>{{lang.text}}（{{results.community[lang.id]}}年）:</label>
+          <v-touch @panstart="pan = 'community_' + lang.id" @panmove="panmove($event, 30)" @panend="pan = null" :pan-options="{ direction: 'horizontal', threshold: 1 }">
+            <Slider ref="slider" @input="drag" v-model="results.community[lang.id]" :min="0" :max="30"></Slider>
+          </v-touch>
         </template>
       </div>
     </fieldset>
@@ -99,18 +117,34 @@ export default {
   props: ['languages'],
   data: function () {
     return {
-      first: {},
-      study: {},
-      speak: {},
-      normal: {},
-      school: {},
-      home: {},
-      community: {}
+      results: {
+        first: {},
+        study: {},
+        speak: {},
+        normal: {},
+        school: {},
+        home: {},
+        community: {}
+      },
+      pan: null
     }
   },
   methods: {
     drag: function () {
-      this.$emit('updated', _.clone(this.$data))
+      this.$emit('updated', _.clone(this.results))
+    },
+    panmove: function (event, range) {
+      if (this.pan) {
+        const pos = event.center.x - this.$refs.slider[0].$el.offsetLeft
+        let rate = pos / this.$refs.slider[0].$el.offsetWidth
+        rate = rate > 1 ? 1 : rate
+        let value = _.round(rate * range)
+        const min = range === 30 ? 0 : -1
+        value = value > min ? value : min
+        const result = this.pan.split('_')
+        this.results[result[0]][result[1]] = value
+        this.drag()
+      }
     },
     init: function (languages, original, defaultValue) {
       const init = {}
@@ -134,13 +168,13 @@ export default {
   },
   watch: {
     languages: function () {
-      this.first = this.init(this.languages, this.first, -1)
-      this.study = this.init(this.languages, this.study, -1)
-      this.speak = this.init(this.languages, this.speak, -1)
-      this.normal = this.init(this.languages, this.normal, -1)
-      this.school = this.init(this.languages, this.school)
-      this.home = this.init(this.languages, this.home)
-      this.community = this.init(this.languages, this.community)
+      this.results.first = this.init(this.languages, this.results.first, -1)
+      this.results.study = this.init(this.languages, this.results.study, -1)
+      this.results.speak = this.init(this.languages, this.results.speak, -1)
+      this.results.normal = this.init(this.languages, this.results.normal, -1)
+      this.results.school = this.init(this.languages, this.results.school)
+      this.results.home = this.init(this.languages, this.results.home)
+      this.results.community = this.init(this.languages, this.results.community)
     }
   }
 }

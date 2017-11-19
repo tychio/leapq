@@ -1,6 +1,6 @@
 <template>
-  <div class="card-wrapper">
-    <h3 v-if="sortedLanguages.length">请{{isMobile ? '由上至下' : '由左至右'}}，按照你<strong>{{tip}}</strong>排列出下列语言</h3>
+  <div class="card-wrapper" v-if="sortedLanguages.length">
+    <h3>请{{isMobile ? '由上至下' : '由左至右'}}，按照你<strong>{{tip}}</strong>排列出下列语言</h3>
     <Draggable v-model="sortedLanguages">
       <div class="card" v-for="lang in sortedLanguages" :key="lang.id">
         <Card>

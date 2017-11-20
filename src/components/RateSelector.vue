@@ -68,7 +68,7 @@ export default {
   computed: {
     actionName: function () {
       if (window.document.body.clientWidth < 960) {
-        return '点击横条'
+        return '拖动滑动条'
       } else {
         return '拖动滑动条'
       }

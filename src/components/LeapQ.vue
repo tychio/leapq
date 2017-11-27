@@ -176,7 +176,8 @@ export default {
       score: {},
       warning: '',
       slogonMonth: '11',
-      slogonDay: '27'
+      slogonDay: '27',
+      submitting: false
     }
   },
   mounted: function () {
@@ -231,12 +232,20 @@ export default {
       this.step = (this.step - 1) || 1
     },
     submit: function () {
+      if (this.submitting) {
+        return
+      }
+      this.submitting = true
       this.warning = this.validScore()
       if (!this.warning) {
         axios.post(process.env.SERVER_URL.LEAPQ, {
           data: this.results
         }).then(response => {
           this.step = 7
+          this.submitting = false
+        }).catch(error => {
+          this.submitting = false
+          console.error(error)
         })
       }
     },

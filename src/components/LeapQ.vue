@@ -4,7 +4,7 @@
       <p>你好， 同学！</p>
       <p>非常感谢你能填写调查问卷，参与到我们语言研究团队的调研工作中。</p>
       <p>请依照你个人语言经历和水平，填写真实有效的信息。研究人员会根据你提供的语言经历数据，筛选出能进入下一步有偿实验环节的候选人，届时我们将通过你填写的联系方式（微信或手机号）与你联系。</p>
-      <p class="assert"><small><i>研究数据收集仅用于语言学学术研究，保障个人隐私。研究问卷填写截止日期为11月27日。</i></small></p>
+      <p class="assert"><small><i>研究数据收集仅用于语言学学术研究，保障个人隐私。研究问卷填写截止日期为{{slogonMonth}}月{{slogonDay}}日。</i></small></p>
     </div>
     <Steps :current="step - 1">
         <Step title="个人信息" content="填写包括联系方式的个人信息"></Step>
@@ -174,7 +174,9 @@ export default {
         community: {}
       },
       score: {},
-      warning: ''
+      warning: '',
+      slogonMonth: '11',
+      slogonDay: '27'
     }
   },
   mounted: function () {
@@ -197,7 +199,11 @@ export default {
       }
     },
     showSlogon: function () {
-      return this.step === 1 && ((new Date()).getFullYear()) < 2018
+      const now = new Date()
+      const end = new Date((7 - now.getDay()) * 86400000 + now.getTime())
+      this.slogonDay = end.getDate()
+      this.slogonMonth = end.getMonth() + 1
+      return this.step === 1 && (end.getFullYear()) < 2018
     }
   },
   methods: {

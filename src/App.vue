@@ -3,7 +3,8 @@
     <header>
       <h1>语言经历和语言水平调查问卷 (Leap-Q)</h1>
     </header>
-    <leapq/>
+    <analysis v-if="page === 'analysis'"/>
+    <leapq v-else/>
     <footer>
       <p>改编自<strong>西北双语和心理语言研究实验室</strong></p>
       <p>玛丽安，布鲁莫菲尔德，及考山斯卡娅2007版的LEAP-Q</p>
@@ -17,13 +18,24 @@
 
 <script>
 import LeapQ from './components/LeapQ'
+import Analysis from './components/Analysis'
 
 export default {
   name: 'app',
+  data: function () {
+    return {
+      page: null
+    }
+  },
   components: {
-    leapq: LeapQ
+    leapq: LeapQ,
+    analysis: Analysis
   },
   mounted: function () {
+    const params = window.location.search.match(/(p=)([\w]+)/)
+    if (params.length >= 3) {
+      this.page = params[2]
+    }
     window.onbeforeunload = function (e) {
       const message = '是否确认关闭当前窗口？'
       e = e || window.event

@@ -33,18 +33,19 @@ export default {
   },
   mounted: function () {
     const params = window.location.search.match(/(p=)([\w]+)/)
-    if (params.length >= 3) {
+    if (params && params.length >= 3) {
       this.page = params[2]
-    }
-    window.onbeforeunload = function (e) {
-      const message = '是否确认关闭当前窗口？'
-      e = e || window.event
-      // For IE and Firefox
-      if (e) {
-        e.returnValue = message
+    } else {
+      window.onbeforeunload = function (e) {
+        const message = '是否确认关闭当前窗口？'
+        e = e || window.event
+        // For IE and Firefox
+        if (e) {
+          e.returnValue = message
+        }
+        // For Safari
+        return message
       }
-      // For Safari
-      return message
     }
   }
 }

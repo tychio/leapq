@@ -56,46 +56,44 @@
             exported: true
           },
           {
-            title: 'Reading Use',
-            key: 'reading_use',
-            sortable: true,
-            width: 170
+            title: 'L1 Start Age',
+            key: 'lang1_start_age',
+            width: 120
           },
           {
-            title: 'Speaking Use',
-            key: 'speaking_use',
-            sortable: true,
-            width: 170
+            title: 'L2 Start Age',
+            key: 'lang2_start_age',
+            width: 120
           },
           {
-            title: 'Listening Use',
-            key: 'listening_use',
-            sortable: true,
-            width: 170
+            title: 'L1 Learn Age',
+            key: 'lang1_learn_age',
+            width: 120
           },
           {
-            title: 'Writing Use',
-            key: 'writing_use',
-            sortable: true,
-            width: 170
+            title: 'L2 Learn Age',
+            key: 'lang2_learn_age',
+            width: 120
           },
           {
-            title: 'Reading Self',
-            key: 'reading_self',
-            sortable: true,
-            width: 170
+            title: 'L1 L Inst Age',
+            key: 'lang1_l_instruction_age',
+            width: 120
           },
           {
-            title: 'Speaking Self',
-            key: 'speaking_self',
-            sortable: true,
-            width: 170
+            title: 'L2 L Inst Age',
+            key: 'lang2_l_instruction_age',
+            width: 120
           },
           {
-            title: 'Listening Self',
-            key: 'listening_self',
-            sortable: true,
-            width: 170
+            title: 'L1 C Inst Age',
+            key: 'lang1_c_instruction_age',
+            width: 120
+          },
+          {
+            title: 'L2 C Inst Age',
+            key: 'lang2_c_instruction_age',
+            width: 120
           },
           {
             title: 'QQ',
@@ -104,7 +102,7 @@
             exported: true
           },
           {
-            title: 'wechat',
+            title: 'Wechat',
             key: 'wechat',
             width: 120,
             exported: true

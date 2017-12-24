@@ -2,6 +2,7 @@
   <div>
     <section>
       <Button type="info" @click.native="download">Export</Button>
+      <Button type="warning" @click.native="update">Refresh</Button>
     </section>
     <section>
       <Table ref="table" border stripe height="600" :columns="columns" :data="list"></Table>
@@ -124,15 +125,26 @@
           columns: this.columns.filter(column => !!column.exported),
           data: data.map((item, index) => _.extend(item, { id: index + 1 }))
         })
+      },
+      update: function () {
+        axios.post(process.env.SERVER_URL.ANALYSIS)
+        .then(response => {
+          this.load()
+        }).catch(error => {
+          console.error(error)
+        })
+      },
+      load: function () {
+        axios.get(process.env.SERVER_URL.ANALYSIS)
+        .then(response => {
+          this.list = response.data
+        }).catch(error => {
+          console.error(error)
+        })
       }
     },
     mounted: function () {
-      axios.get(process.env.SERVER_URL.ANALYSIS)
-      .then(response => {
-        this.list = response.data
-      }).catch(error => {
-        console.error(error)
-      })
+      this.load()
     }
   }
 </script>

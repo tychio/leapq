@@ -18,4 +18,21 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# Release
+
+```
+# build production dist
+npm run build
+
+# update version in package.json
+
+# commit dist for release
+git add -A & git commit -m "Release <version>"
+
+# push code to master
+git push origin master
+
+# release
+npm run release
+```

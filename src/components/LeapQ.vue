@@ -140,8 +140,8 @@ export default {
     return {
       step: 1,
       info: {
-        firstname: '',
-        lastname: '',
+        name: '',
+        code: '',
         birthday: new Date('2000-01-01'),
         age: 20,
         nation: '',
@@ -300,8 +300,8 @@ export default {
     },
     validInfo: function () {
       const invalid = this.validate([
-        'lastname',
-        'firstname',
+        'name',
+        'code',
         'birthday',
         'nation',
         'province',

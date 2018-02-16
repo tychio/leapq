@@ -3,10 +3,10 @@
     <FormItem label="姓名">
       <Row :gutter="16">
         <Col span="9">
-          <Input v-model="info.lastname" placeholder="姓"></Input>
+          <Input v-model="info.name" placeholder="名字"></Input>
         </Col>
         <Col span="9">
-          <Input v-model="info.firstname" placeholder="名"></Input>
+          <Input v-model="info.code" placeholder="编号"></Input>
         </Col>
       </Row>
     </FormItem>

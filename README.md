@@ -28,7 +28,7 @@ npm run build
 # update version in package.json
 
 # commit dist for release
-git add -A & git commit -m "Release <version>"
+git add -A && git commit -m "Release <version>"
 
 # push code to master
 git push origin master

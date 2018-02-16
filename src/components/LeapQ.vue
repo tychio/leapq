@@ -235,9 +235,9 @@ export default {
       if (this.submitting) {
         return
       }
-      this.submitting = true
       this.warning = this.validScore()
       if (!this.warning) {
+        this.submitting = true
         axios.post(process.env.SERVER_URL.LEAPQ, {
           data: this.results
         }).then(response => {

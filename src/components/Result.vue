@@ -113,6 +113,15 @@
       formatNum: function (num) {
         return _.round(num, 2).toFixed(2)
       },
+      simonHandler: function (data) {
+        return this.lex_ugHandler(data)
+      },
+      flankerHandler: function (data) {
+        return this.lex_ugHandler(data)
+      },
+      lex_cnHandler: function (data) {
+        return this.lex_ugHandler(data)
+      },
       lex_ugHandler: function (data) {
         const list = []
         let index = 1

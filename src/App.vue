@@ -1,9 +1,11 @@
 <template>
   <div id="app">
     <header>
-      <h1>语言经历和语言水平调查问卷 (Leap-Q)</h1>
+      <h1 v-if="!page">语言经历和语言水平调查问卷 (Leap-Q)</h1>
+      <h1 v-else>实验数据分析</h1>
     </header>
     <analysis v-if="page === 'analysis'"/>
+    <result v-else-if="page === 'result'"/>
     <leapq v-else/>
     <footer>
       <p>改编自<strong>西北双语和心理语言研究实验室</strong></p>
@@ -18,6 +20,7 @@
 <script>
 import LeapQ from './components/LeapQ'
 import Analysis from './components/Analysis'
+import Result from './components/Result'
 
 export default {
   name: 'app',
@@ -28,7 +31,8 @@ export default {
   },
   components: {
     leapq: LeapQ,
-    analysis: Analysis
+    analysis: Analysis,
+    result: Result
   },
   mounted: function () {
     const params = window.location.search.match(/(p=)([\w]+)/)

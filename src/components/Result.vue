@@ -2,6 +2,9 @@
   <div>
     <section>
       <Button type="info" @click.native="download">Export</Button>
+      <Select v-model="type" style="width: 160px;">
+        <Option v-for="item in kinds" :value="item.key" :key="item.key">{{ item.label }}</Option>
+      </Select>
     </section>
     <section>
       <Table ref="table" border stripe height="600" :columns="fullColumns" :data="list"></Table>
@@ -19,6 +22,12 @@
       return {
         list: [],
         type: 'lex_ug',
+        kinds: [
+          { key: 'lex_ug', label: 'Lexical Uyghur' },
+          { key: 'lex_cn', label: 'Lexical Chinese' },
+          { key: 'flanker', label: 'Flanker Test' },
+          { key: 'simon', label: 'Simon Test' }
+        ],
         groupMap: {
           'lang1': 'L1',
           'lang2': 'L2',
@@ -88,6 +97,11 @@
             }
           ]
         }
+      }
+    },
+    watch: {
+      type: function () {
+        this.load()
       }
     },
     methods: {

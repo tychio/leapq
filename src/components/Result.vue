@@ -242,7 +242,7 @@
       download: function () {
         const data = this.$refs.table.data
         this.$refs.table.exportCsv({
-          filename: 'Participants',
+          filename: 'Results ' + this.kindString,
           columns: this.fullColumns.filter(column => !!column.exported),
           data: data.map((item, index) => _.extend(item, { id: index + 1 }))
         })
@@ -345,6 +345,12 @@
           kindColumn.width = this.WIDTH
         })
         return _.concat(this.columns, kindColumns)
+      },
+      kindString: function () {
+        var currentKind = _.find(this.kinds, kind => kind.key === this.type)
+        if (currentKind) {
+          return currentKind.label
+        }
       }
     },
     mounted: function () {

@@ -37,22 +37,31 @@
         columns: [
           {
             type: 'index',
-            title: 'Idx',
+            title: '#',
             key: 'id',
-            width: 60,
-            fixed: 'left',
+            width: 40,
             align: 'center'
           },
           {
             title: 'Participant ID',
             key: 'phone',
-            fixed: 'left',
-            width: 160,
+            width: 120,
             exported: true
           },
           {
             title: 'Dominance Type',
             key: 'kind',
+            width: 140,
+            exported: true
+          },
+          {
+            title: 'Average RT',
+            key: 'average_speed',
+            exported: true
+          },
+          {
+            title: 'Sum Acc',
+            key: 'sum_accuracy',
             exported: true
           }
         ],
@@ -77,24 +86,6 @@
               title: 'Sum Cword Acc',
               key: 'sum_word_accuracy',
               exported: true
-            },
-            {
-              title: 'Average Cn RT',
-              key: 'average_speed',
-              exported: true
-            },
-            {
-              title: 'Sum Cn Acc',
-              key: 'sum_accuracy',
-              exported: true
-            },
-            {
-              title: 'Minimum Threshold',
-              key: 'min'
-            },
-            {
-              title: 'Maximum Threshold',
-              key: 'max'
             }
           ],
           'lex_ug': [
@@ -117,24 +108,6 @@
               title: 'Sum Uword Acc',
               key: 'sum_word_accuracy',
               exported: true
-            },
-            {
-              title: 'Average Ug RT',
-              key: 'average_speed',
-              exported: true
-            },
-            {
-              title: 'Sum Ug Acc',
-              key: 'sum_accuracy',
-              exported: true
-            },
-            {
-              title: 'Minimum Threshold',
-              key: 'min'
-            },
-            {
-              title: 'Maximum Threshold',
-              key: 'max'
             }
           ],
           'flanker': [
@@ -167,24 +140,6 @@
               title: 'Sum Neutral Acc',
               key: 'sum_neu_accuracy',
               exported: true
-            },
-            {
-              title: 'Average RT',
-              key: 'average_speed',
-              exported: true
-            },
-            {
-              title: 'Sum Acc',
-              key: 'sum_accuracy',
-              exported: true
-            },
-            {
-              title: 'Minimum Threshold',
-              key: 'min'
-            },
-            {
-              title: 'Maximum Threshold',
-              key: 'max'
             }
           ],
           'simon': [
@@ -217,24 +172,6 @@
               title: 'Sum Center Acc',
               key: 'sum_center_accuracy',
               exported: true
-            },
-            {
-              title: 'Average RT',
-              key: 'average_speed',
-              exported: true
-            },
-            {
-              title: 'Sum Acc',
-              key: 'sum_accuracy',
-              exported: true
-            },
-            {
-              title: 'Minimum Threshold',
-              key: 'min'
-            },
-            {
-              title: 'Maximum Threshold',
-              key: 'max'
             }
           ]
         }
@@ -273,142 +210,29 @@
         return _.round(num, 2).toFixed(2)
       },
       simonHandler: function (data) {
-        const list = []
-        let index = 1
-        _.each(data, (samples, groupName) => {
-          _.each(samples, (items, phone) => {
-            const averageSpeed = []
-            const averageRightSpeed = []
-            const averageLeftSpeed = []
-            const averageCenterSpeed = []
-            const sample = {
-              id: index++,
-              kind: this.groupMap[groupName],
-              phone: phone,
-              average_speed: 0,
-              average_right_speed: 0,
-              average_left_speed: 0,
-              average_center_speed: 0,
-              sum_right_accuracy: 0,
-              sum_left_accuracy: 0,
-              sum_center_accuracy: 0,
-              sum_accuracy: 0,
-              min: 0,
-              max: 0
-            }
-            _.each(items, item => {
-              if (item.inlier > 0) {
-                averageSpeed.push(item.inlier)
-                if (item.question.direction === 'right') {
-                  averageRightSpeed.push(item.inlier)
-                } else if (item.question.direction === 'left') {
-                  averageLeftSpeed.push(item.inlier)
-                } else {
-                  averageCenterSpeed.push(item.inlier)
-                }
-              }
-              sample.min = sample.min || this.formatNum(item.min)
-              sample.max = sample.max || this.formatNum(item.max)
-            })
-            if (averageSpeed.length) {
-              sample.average_speed = this.formatNum(_.sum(averageSpeed) / averageSpeed.length)
-              sample.sum_accuracy = averageSpeed.length
-            }
-            if (averageRightSpeed.length) {
-              sample.average_right_speed = this.formatNum(_.sum(averageRightSpeed) / averageRightSpeed.length)
-              sample.sum_right_accuracy = averageRightSpeed.length
-            }
-            if (averageLeftSpeed.length) {
-              sample.average_left_speed = this.formatNum(_.sum(averageLeftSpeed) / averageLeftSpeed.length)
-              sample.sum_left_accuracy = averageLeftSpeed.length
-            }
-            if (averageCenterSpeed.length) {
-              sample.average_center_speed = this.formatNum(_.sum(averageCenterSpeed) / averageCenterSpeed.length)
-              sample.sum_center_accuracy = averageCenterSpeed.length
-            }
-            list.push(sample)
-          })
-        })
-        return list
+        return this.baseHandler(data, ['right', 'left', 'center'])
       },
       flankerHandler: function (data) {
-        const list = []
-        let index = 1
-        _.each(data, (samples, groupName) => {
-          _.each(samples, (items, phone) => {
-            const averageSpeed = []
-            const averageConSpeed = []
-            const averageInconSpeed = []
-            const averageNeuSpeed = []
-            const sample = {
-              id: index++,
-              kind: this.groupMap[groupName],
-              phone: phone,
-              average_speed: 0,
-              average_con_speed: 0,
-              average_incon_speed: 0,
-              average_neu_speed: 0,
-              sum_con_accuracy: 0,
-              sum_incon_accuracy: 0,
-              sum_neu_accuracy: 0,
-              sum_accuracy: 0,
-              min: 0,
-              max: 0
-            }
-            _.each(items, item => {
-              if (item.inlier > 0) {
-                averageSpeed.push(item.inlier)
-                if (item.question.congruent === 'con') {
-                  averageConSpeed.push(item.inlier)
-                } else if (item.question.congruent === 'incon') {
-                  averageInconSpeed.push(item.inlier)
-                } else {
-                  averageNeuSpeed.push(item.inlier)
-                }
-              }
-              sample.min = sample.min || this.formatNum(item.min)
-              sample.max = sample.max || this.formatNum(item.max)
-            })
-            if (averageSpeed.length) {
-              sample.average_speed = this.formatNum(_.sum(averageSpeed) / averageSpeed.length)
-              sample.sum_accuracy = averageSpeed.length
-            }
-            if (averageConSpeed.length) {
-              sample.average_con_speed = this.formatNum(_.sum(averageConSpeed) / averageConSpeed.length)
-              sample.sum_con_accuracy = averageConSpeed.length
-            }
-            if (averageInconSpeed.length) {
-              sample.average_incon_speed = this.formatNum(_.sum(averageInconSpeed) / averageInconSpeed.length)
-              sample.sum_incon_accuracy = averageInconSpeed.length
-            }
-            if (averageNeuSpeed.length) {
-              sample.average_neu_speed = this.formatNum(_.sum(averageNeuSpeed) / averageNeuSpeed.length)
-              sample.sum_neu_accuracy = averageNeuSpeed.length
-            }
-            list.push(sample)
-          })
-        })
-        return list
+        return this.baseHandler(data, ['con', 'incon', 'neu'])
       },
       lex_cnHandler: function (data) {
-        return this.lex_ugHandler(data)
+        return this.baseHandler(data, ['nonword', 'word'])
       },
       lex_ugHandler: function (data) {
+        return this.baseHandler(data, ['nonword', 'word'])
+      },
+      baseHandler: function (data, extra) {
         const list = []
         let index = 1
         _.each(data, (samples, groupName) => {
           _.each(samples, (items, phone) => {
             const averageSpeed = []
-            const averageNonwordSpeed = []
-            const averageWordSpeed = []
+            const averageExtraSpeed = _.chain(extra).groupBy(key => key).mapValues(obj => []).value()
             const sample = {
               id: index++,
               kind: this.groupMap[groupName],
               phone: phone,
               average_speed: 0,
-              average_word_speed: 0,
-              average_nonword_speed: 0,
-              sum_nonword_accuracy: 0,
               sum_accuracy: 0,
               min: 0,
               max: 0
@@ -416,10 +240,8 @@
             _.each(items, item => {
               if (item.inlier > 0) {
                 averageSpeed.push(item.inlier)
-                if (item.question.real) {
-                  averageWordSpeed.push(item.inlier)
-                } else {
-                  averageNonwordSpeed.push(item.inlier)
+                if (averageExtraSpeed[item.combination]) {
+                  averageExtraSpeed[item.combination].push(item.inlier)
                 }
               }
               sample.min = sample.min || this.formatNum(item.min)
@@ -429,14 +251,13 @@
               sample.average_speed = this.formatNum(_.sum(averageSpeed) / averageSpeed.length)
               sample.sum_accuracy = averageSpeed.length
             }
-            if (averageWordSpeed.length) {
-              sample.average_word_speed = this.formatNum(_.sum(averageWordSpeed) / averageWordSpeed.length)
-              sample.sum_word_accuracy = averageWordSpeed.length
-            }
-            if (averageNonwordSpeed.length) {
-              sample.average_nonword_speed = this.formatNum(_.sum(averageNonwordSpeed) / averageNonwordSpeed.length)
-              sample.sum_nonword_accuracy = averageNonwordSpeed.length
-            }
+
+            _.each(averageExtraSpeed, (item, key) => {
+              const sumSpeed = _.sum(item)
+              const accuracyCount = item.length
+              sample[`average_${key}_speed`] = this.formatNum(sumSpeed / accuracyCount)
+              sample[`sum_${key}_accuracy`] = accuracyCount
+            })
             list.push(sample)
           })
         })

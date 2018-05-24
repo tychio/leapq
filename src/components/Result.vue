@@ -19,7 +19,9 @@
   export default {
     name: 'Result',
     data () {
+      const WIDTH = 160
       return {
+        WIDTH: WIDTH,
         list: [],
         cached: {},
         type: 'lex_ug',
@@ -27,7 +29,8 @@
           { key: 'lex_ug', label: 'Lexical Uyghur' },
           { key: 'lex_cn', label: 'Lexical Chinese' },
           { key: 'flanker', label: 'Flanker Test' },
-          { key: 'simon', label: 'Simon Test' }
+          { key: 'simon', label: 'Simon Test' },
+          { key: 'pic', label: 'Picture Naming' }
         ],
         groupMap: {
           'lang1': 'L1',
@@ -39,139 +42,190 @@
             type: 'index',
             title: '#',
             key: 'id',
+            fixed: 'left',
             width: 40,
             align: 'center'
           },
           {
             title: 'Participant ID',
             key: 'phone',
-            width: 120,
+            width: 140,
+            fixed: 'left',
             exported: true
           },
           {
             title: 'Dominance Type',
             key: 'kind',
             width: 140,
+            fixed: 'left',
             exported: true
           },
           {
-            title: 'Average RT',
+            title: 'Ave RT',
             key: 'average_speed',
+            width: WIDTH,
             exported: true
           },
           {
             title: 'Sum Acc',
             key: 'sum_accuracy',
+            width: WIDTH,
             exported: true
           }
         ],
         columnsByKinds: {
           'lex_cn': [
             {
-              title: 'Average Cnon RT',
-              key: 'average_nonword_speed',
-              exported: true
+              title: 'Ave Cnon RT',
+              key: 'average_nonword_speed'
             },
             {
-              title: 'Average Cword RT',
-              key: 'average_word_speed',
-              exported: true
+              title: 'Ave Cword RT',
+              key: 'average_word_speed'
             },
             {
               title: 'Sum Cnon Acc',
-              key: 'sum_nonword_accuracy',
-              exported: true
+              key: 'sum_nonword_accuracy'
             },
             {
               title: 'Sum Cword Acc',
-              key: 'sum_word_accuracy',
-              exported: true
+              key: 'sum_word_accuracy'
             }
           ],
           'lex_ug': [
             {
-              title: 'Average Unon RT',
-              key: 'average_nonword_speed',
-              exported: true
+              title: 'Ave Unon RT',
+              key: 'average_nonword_speed'
             },
             {
-              title: 'Average Uword RT',
-              key: 'average_word_speed',
-              exported: true
+              title: 'Ave Uword RT',
+              key: 'average_word_speed'
             },
             {
               title: 'Sum Unon Acc',
-              key: 'sum_nonword_accuracy',
-              exported: true
+              key: 'sum_nonword_accuracy'
             },
             {
               title: 'Sum Uword Acc',
-              key: 'sum_word_accuracy',
-              exported: true
+              key: 'sum_word_accuracy'
             }
           ],
           'flanker': [
             {
-              title: 'Average Con RT',
-              key: 'average_con_speed',
-              exported: true
+              title: 'Ave Con RT',
+              key: 'average_con_speed'
             },
             {
-              title: 'Average Incon RT',
-              key: 'average_incon_speed',
-              exported: true
+              title: 'Ave Incon RT',
+              key: 'average_incon_speed'
             },
             {
-              title: 'Average Neutral RT',
-              key: 'average_neu_speed',
-              exported: true
+              title: 'Ave Neutral RT',
+              key: 'average_neu_speed'
             },
             {
               title: 'Sum Con Acc',
-              key: 'sum_con_accuracy',
-              exported: true
+              key: 'sum_con_accuracy'
             },
             {
               title: 'Sum Incon Acc',
-              key: 'sum_incon_accuracy',
-              exported: true
+              key: 'sum_incon_accuracy'
             },
             {
               title: 'Sum Neutral Acc',
-              key: 'sum_neu_accuracy',
-              exported: true
+              key: 'sum_neu_accuracy'
             }
           ],
           'simon': [
             {
-              title: 'Average Right RT',
-              key: 'average_right_speed',
-              exported: true
+              title: 'Ave Right RT',
+              key: 'average_right_speed'
             },
             {
-              title: 'Average Left RT',
-              key: 'average_left_speed',
-              exported: true
+              title: 'Ave Left RT',
+              key: 'average_left_speed'
             },
             {
-              title: 'Average Center RT',
-              key: 'average_center_speed',
-              exported: true
+              title: 'Ave Center RT',
+              key: 'average_center_speed'
             },
             {
               title: 'Sum Right Acc',
-              key: 'sum_right_accuracy',
-              exported: true
+              key: 'sum_right_accuracy'
             },
             {
               title: 'Sum Left Acc',
-              key: 'sum_left_accuracy',
-              exported: true
+              key: 'sum_left_accuracy'
             },
             {
               title: 'Sum Center Acc',
-              key: 'sum_center_accuracy',
-              exported: true
+              key: 'sum_center_accuracy'
+            }
+          ],
+          'pic': [
+            {
+              title: 'Ave Cn RT',
+              key: 'average_ug_speed'
+            },
+            {
+              title: 'Ave Ug RT',
+              key: 'average_ug_speed'
+            },
+            {
+              title: 'Sum Cn Acc',
+              key: 'sum_cn_accuracy'
+            },
+            {
+              title: 'Sum Ug Acc',
+              key: 'sum_ug_accuracy'
+            },
+            {
+              title: 'Ave Switch RT',
+              key: 'average_switch_speed'
+            },
+            {
+              title: 'Ave Nonswi RT',
+              key: 'average_keep_speed'
+            },
+            {
+              title: 'Sum Switch Acc',
+              key: 'sum_switch_accuracy'
+            },
+            {
+              title: 'Sum Nonswi Acc',
+              key: 'sum_keep_accuracy'
+            },
+            {
+              title: 'Ave Switch Cn RT',
+              key: 'average_switch_cn_speed'
+            },
+            {
+              title: 'Ave Switch Ug RT',
+              key: 'average_switch_ug_speed'
+            },
+            {
+              title: 'Ave Nonswi Cn RT',
+              key: 'average_keep_cn_speed'
+            },
+            {
+              title: 'Ave Nonswi Ug RT',
+              key: 'average_keep_ug_speed'
+            },
+            {
+              title: 'Sum Switch Cn Acc',
+              key: 'sum_switch_cn_accuracy'
+            },
+            {
+              title: 'Sum Switch Ug Acc',
+              key: 'sum_switch_ug_accuracy'
+            },
+            {
+              title: 'Sum Nonswi Cn Acc',
+              key: 'sum_keep_cn_accuracy'
+            },
+            {
+              title: 'Sum Nonswi Ug Acc',
+              key: 'sum_keep_ug_accuracy'
             }
           ]
         }
@@ -209,6 +263,9 @@
       formatNum: function (num) {
         return _.round(num, 2).toFixed(2)
       },
+      picHandler: function (data) {
+        return this.baseHandler(data, ['switch', 'keep', 'cn', 'ug', 'switch_cn', 'switch_ug', 'keep_cn', 'keep_ug'], true)
+      },
       simonHandler: function (data) {
         return this.baseHandler(data, ['right', 'left', 'center'])
       },
@@ -221,7 +278,7 @@
       lex_ugHandler: function (data) {
         return this.baseHandler(data, ['nonword', 'word'])
       },
-      baseHandler: function (data, extra) {
+      baseHandler: function (data, extra, like) {
         const list = []
         let index = 1
         _.each(data, (samples, groupName) => {
@@ -240,8 +297,16 @@
             _.each(items, item => {
               if (item.inlier > 0) {
                 averageSpeed.push(item.inlier)
-                if (averageExtraSpeed[item.combination]) {
-                  averageExtraSpeed[item.combination].push(item.inlier)
+                if (like) {
+                  _.each(averageExtraSpeed, (extraItem, key) => {
+                    if (_.includes(item.combination, key)) {
+                      averageExtraSpeed[key].push(item.inlier)
+                    }
+                  })
+                } else {
+                  if (averageExtraSpeed[item.combination]) {
+                    averageExtraSpeed[item.combination].push(item.inlier)
+                  }
                 }
               }
               sample.min = sample.min || this.formatNum(item.min)
@@ -267,6 +332,10 @@
     computed: {
       fullColumns: function () {
         const kindColumns = this.columnsByKinds[this.type] || {}
+        _.each(kindColumns, kindColumn => {
+          kindColumn.exported = true
+          kindColumn.width = this.WIDTH
+        })
         return _.concat(this.columns, kindColumns)
       }
     },

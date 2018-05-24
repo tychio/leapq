@@ -167,7 +167,7 @@
           'pic': [
             {
               title: 'Ave Cn RT',
-              key: 'average_ug_speed'
+              key: 'average_cn_speed'
             },
             {
               title: 'Ave Ug RT',

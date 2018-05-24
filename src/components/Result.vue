@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Spin size="large" fix v-if="loading"></Spin>
     <section>
       <Button type="info" @click.native="download">Export</Button>
       <Select v-model="type" style="width: 160px;">
@@ -22,6 +23,7 @@
       const WIDTH = 160
       return {
         WIDTH: WIDTH,
+        loading: false,
         list: [],
         cached: {},
         type: 'lex_ug',
@@ -246,17 +248,23 @@
         })
       },
       load: function () {
+        if (this.loading) {
+          return
+        }
         if (this.cached[this.type]) {
           this.list = this.cached[this.type]
         } else {
+          this.loading = true
           axios.get(process.env.SERVER_URL.EXPERIMENT, {
             params: {
               type: this.type
             }
           }).then(response => {
             this.list = this.cached[this.type] = this[this.type + 'Handler'](response.data)
+            this.loading = false
           }).catch(error => {
             console.error(error)
+            this.loading = false
           })
         }
       },
@@ -348,5 +356,9 @@
 <style>
   section {
     padding: 10px;
+  }
+
+  .ivu-spin-fix {
+    position: fixed;
   }
 </style>

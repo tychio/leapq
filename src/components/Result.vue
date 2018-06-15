@@ -56,9 +56,18 @@
             exported: true
           },
           {
+            title: 'Code',
+            key: 'code',
+            width: 140,
+            sortable: true,
+            fixed: 'left',
+            exported: true
+          },
+          {
             title: 'Dominance Type',
             key: 'kind',
             width: 140,
+            sortable: true,
             fixed: 'left',
             exported: true
           },
@@ -297,12 +306,14 @@
               id: index++,
               kind: this.groupMap[groupName],
               phone: phone,
+              code: '',
               average_speed: 0,
               sum_accuracy: 0,
               min: 0,
               max: 0
             }
             _.each(items, item => {
+              sample.code = item.code
               if (item.inlier > 0) {
                 averageSpeed.push(item.inlier)
                 if (like) {

@@ -56,17 +56,9 @@
             exported: true
           },
           {
-            title: 'Code',
-            key: 'code',
-            width: 140,
-            sortable: true,
-            fixed: 'left',
-            exported: true
-          },
-          {
             title: 'Dominance Type',
             key: 'kind',
-            width: 140,
+            width: 160,
             sortable: true,
             fixed: 'left',
             exported: true
@@ -304,16 +296,15 @@
             const averageExtraSpeed = _.chain(extra).groupBy(key => key).mapValues(obj => []).value()
             const sample = {
               id: index++,
-              kind: this.groupMap[groupName],
+              kind: '',
               phone: phone,
-              code: '',
               average_speed: 0,
               sum_accuracy: 0,
               min: 0,
               max: 0
             }
             _.each(items, item => {
-              sample.code = item.code
+              sample.kind = this.groupMap[groupName] + '_' + item.code
               if (item.inlier > 0) {
                 averageSpeed.push(item.inlier)
                 if (like) {

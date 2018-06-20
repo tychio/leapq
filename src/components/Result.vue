@@ -115,71 +115,71 @@
           ],
           'flanker': [
             {
-              title: 'Ave Con RT',
+              title: 'F Ave Con RT',
               key: 'average_con_speed'
             },
             {
-              title: 'Ave Incon RT',
+              title: 'F Ave Incon RT',
               key: 'average_incon_speed'
             },
             {
-              title: 'Ave Neutral RT',
+              title: 'F Ave Neutral RT',
               key: 'average_neu_speed'
             },
             {
-              title: 'Sum Con Acc',
+              title: 'F Sum Con Acc',
               key: 'sum_con_accuracy'
             },
             {
-              title: 'Sum Incon Acc',
+              title: 'F Sum Incon Acc',
               key: 'sum_incon_accuracy'
             },
             {
-              title: 'Sum Neutral Acc',
+              title: 'F Sum Neutral Acc',
               key: 'sum_neu_accuracy'
             }
           ],
           'simon': [
             {
-              title: 'Ave Right RT',
-              key: 'average_right_speed'
+              title: 'S Ave Con RT',
+              key: 'average_con_speed'
             },
             {
-              title: 'Ave Left RT',
-              key: 'average_left_speed'
+              title: 'S Ave Incon RT',
+              key: 'average_incon_speed'
             },
             {
-              title: 'Ave Center RT',
-              key: 'average_center_speed'
+              title: 'S Ave Neutral RT',
+              key: 'average_neu_speed'
             },
             {
-              title: 'Sum Right Acc',
-              key: 'sum_right_accuracy'
+              title: 'S Sum Con Acc',
+              key: 'sum_con_accuracy'
             },
             {
-              title: 'Sum Left Acc',
-              key: 'sum_left_accuracy'
+              title: 'S Sum Incon Acc',
+              key: 'sum_incon_accuracy'
             },
             {
-              title: 'Sum Center Acc',
-              key: 'sum_center_accuracy'
+              title: 'S Sum Neutral Acc',
+              key: 'sum_neu_accuracy'
             }
           ],
           'pic': [
             {
-              title: 'Ave Cn RT',
+              title: 'P Ave Cn RT',
               key: 'average_cn_speed'
             },
             {
-              title: 'Ave Ug RT',
+              title: 'P Ave Ug RT',
               key: 'average_ug_speed'
             },
             {
-              title: 'Sum Cn Acc',
+              title: 'P Sum Cn Acc',
               key: 'sum_cn_accuracy'
             },
             {
-              title: 'Sum Ug Acc',
+              title: 'P Sum Ug Acc',
               key: 'sum_ug_accuracy'
             },
             {
@@ -276,7 +276,7 @@
         return this.baseHandler(data, ['switch', 'keep', 'cn', 'ug', 'switch_cn', 'switch_ug', 'keep_cn', 'keep_ug'], true)
       },
       simonHandler: function (data) {
-        return this.baseHandler(data, ['right', 'left', 'center'])
+        return this.baseHandler(data, ['con', 'incon', 'neu'])
       },
       flankerHandler: function (data) {
         return this.baseHandler(data, ['con', 'incon', 'neu'])

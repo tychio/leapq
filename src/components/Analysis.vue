@@ -39,6 +39,7 @@
             title: 'Name',
             key: 'name',
             fixed: 'left',
+            sortable: true,
             width: 160,
             exported: true
           },

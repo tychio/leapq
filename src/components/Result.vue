@@ -323,15 +323,13 @@
               sample.max = sample.max || this.formatNum(item.max)
             })
             if (averageSpeed.length) {
-              sample.average_speed = this.formatNum(_.sum(averageSpeed) / averageSpeed.length)
+              sample.average_speed = this.formatNum(_.mean(averageSpeed))
               sample.sum_accuracy = averageSpeed.length
             }
 
             _.each(averageExtraSpeed, (item, key) => {
-              const sumSpeed = _.sum(item)
-              const accuracyCount = item.length
-              sample[`average_${key}_speed`] = this.formatNum(sumSpeed / accuracyCount)
-              sample[`sum_${key}_accuracy`] = accuracyCount
+              sample[`average_${key}_speed`] = this.formatNum(_.mean(item))
+              sample[`sum_${key}_accuracy`] = item.length
             })
             list.push(sample)
           })

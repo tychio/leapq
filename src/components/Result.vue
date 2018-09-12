@@ -26,8 +26,9 @@
         loading: false,
         list: [],
         cached: {},
-        type: 'lex_ug',
+        type: '',
         kinds: [
+          { key: '', label: 'Please select...' },
           { key: 'lex_ug', label: 'Lexical Uyghur' },
           { key: 'lex_cn', label: 'Lexical Chinese' },
           { key: 'flanker', label: 'Flanker Test' },
@@ -236,7 +237,9 @@
     },
     watch: {
       type: function () {
-        this.load()
+        if (this.type !== '') {
+          this.load()
+        }
       }
     },
     methods: {
@@ -354,7 +357,6 @@
       }
     },
     mounted: function () {
-      this.load()
     }
   }
 </script>

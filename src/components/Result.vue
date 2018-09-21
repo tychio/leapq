@@ -301,7 +301,8 @@
       baseHandler: function (data, extra, like) {
         const list = []
         let index = 1
-        _.each(data, (samples, groupName) => {
+        _.each(['lang1', 'lang2', 'balance'], (groupName) => {
+          const samples = data[groupName]
           _.each(samples, (items, phone) => {
             const averageSpeed = []
             const averageExtraSpeed = _.chain(extra).groupBy(key => key).mapValues(obj => []).value()

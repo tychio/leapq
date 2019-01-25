@@ -359,7 +359,8 @@
                     averageExtraSpeed[item.combination].push(item.inlier)
                   }
                 }
-              } else {
+              }
+              if (!item.accuracy) {
                 errorCounter[item.combination]++
               }
               sample.min = sample.min || this.formatNum(item.min)

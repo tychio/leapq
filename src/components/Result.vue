@@ -146,6 +146,18 @@
             {
               title: 'F Sum Neutral Acc',
               key: 'sum_neu_accuracy'
+            },
+            {
+              title: 'F Eff Con',
+              key: 'efficiency_con'
+            },
+            {
+              title: 'F Eff Incon',
+              key: 'efficiency_incon'
+            },
+            {
+              title: 'F Eff Neutral',
+              key: 'efficiency_neu'
             }
           ],
           'simon': [
@@ -172,6 +184,18 @@
             {
               title: 'S Sum Neutral Acc',
               key: 'sum_neu_accuracy'
+            },
+            {
+              title: 'S Eff Con',
+              key: 'efficiency_con'
+            },
+            {
+              title: 'S Eff Incon',
+              key: 'efficiency_incon'
+            },
+            {
+              title: 'S Eff Neutral',
+              key: 'efficiency_neu'
             }
           ],
           'pic': [
@@ -306,6 +330,8 @@
           _.each(samples, (items, phone) => {
             const averageSpeed = []
             const averageExtraSpeed = _.chain(extra).groupBy(key => key).mapValues(obj => []).value()
+            let std = 0
+            const errorCounter = {}
             const sample = {
               id: index++,
               kind: '',
@@ -313,14 +339,13 @@
               average_speed: 0,
               sum_accuracy: 0,
               min: 0,
-              max: 0,
-              errors: {}
+              max: 0
             }
             _.each(items, item => {
               sample.kind = this.groupMap[groupName] + '_' + item.code
               sample.group = this.groupMap[groupName]
               sample.code = item.code
-              sample.errors[item.combination] = sample.errors[item.combination] || 0
+              errorCounter[item.combination] = errorCounter[item.combination] || 0
               if (item.inlier > 0) {
                 averageSpeed.push(item.inlier)
                 if (like) {
@@ -335,20 +360,37 @@
                   }
                 }
               } else {
-                sample.errors[item.combination]++
+                errorCounter[item.combination]++
               }
               sample.min = sample.min || this.formatNum(item.min)
               sample.max = sample.max || this.formatNum(item.max)
+              std = sample.std || this.formatNum(item.std)
             })
             if (averageSpeed.length) {
               sample.average_speed = this.formatNum(_.mean(averageSpeed))
               sample.sum_accuracy = averageSpeed.length
             }
 
+            const errRates = _.chain(errorCounter).values()
+              .map(count => _.divide(count, _.divide(_.size(items), 3)))
+            .value()
+            const meanErrRates = _.mean(errRates)
+            const variance = _.sumBy(errRates, rate => _.subtract(rate, meanErrRates) ** 2)
+            const errRateStandard = Math.sqrt(_.divide(variance, _.size(errRates) - 1))
+
             _.each(averageExtraSpeed, (item, key) => {
-              sample[`average_${key}_speed`] = this.formatNum(_.mean(item))
+              const itemMean = _.mean(item)
+              sample[`average_${key}_speed`] = this.formatNum(itemMean)
               sample[`sum_${key}_accuracy`] = item.length
+              const errRate = _.divide(errorCounter[key], _.divide(_.size(items), 3))
+              sample[`efficiency_${key}`] = this.formatNum(_.chain(std)
+                .divide(errRateStandard).multiply(errRate).add(itemMean)
+              .value())
+              if (isNaN(sample[`efficiency_${key}`])) {
+                sample[`efficiency_${key}`] = this.formatNum(itemMean)
+              }
             })
+
             list.push(sample)
           })
         })

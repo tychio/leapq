@@ -313,12 +313,14 @@
               average_speed: 0,
               sum_accuracy: 0,
               min: 0,
-              max: 0
+              max: 0,
+              errors: {}
             }
             _.each(items, item => {
               sample.kind = this.groupMap[groupName] + '_' + item.code
               sample.group = this.groupMap[groupName]
               sample.code = item.code
+              sample.errors[item.combination] = sample.errors[item.combination] || 0
               if (item.inlier > 0) {
                 averageSpeed.push(item.inlier)
                 if (like) {
@@ -332,6 +334,8 @@
                     averageExtraSpeed[item.combination].push(item.inlier)
                   }
                 }
+              } else {
+                sample.errors[item.combination]++
               }
               sample.min = sample.min || this.formatNum(item.min)
               sample.max = sample.max || this.formatNum(item.max)

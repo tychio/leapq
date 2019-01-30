@@ -7,17 +7,20 @@
     <section>
       <Table ref="table" border stripe height="600" :columns="columns" :data="list"></Table>
     </section>
+    <Statistic :statistics="statistics"/>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
   import * as _ from 'lodash'
+  import Statistic from './Statistics'
 
   export default {
     name: 'Analysis',
     data () {
       return {
+        statistics: [],
         list: [],
         columns: [
           {
@@ -150,7 +153,8 @@
       load: function () {
         axios.get(process.env.SERVER_URL.ANALYSIS)
         .then(response => {
-          this.list = response.data
+          this.list = response.data.results
+          this.statistics = response.data.statistics
         }).catch(error => {
           console.error(error)
         })
@@ -158,6 +162,9 @@
     },
     mounted: function () {
       this.load()
+    },
+    components: {
+      Statistic
     }
   }
 </script>

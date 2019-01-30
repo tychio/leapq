@@ -360,7 +360,11 @@
                   }
                 }
               }
-              if (!item.accuracy) {
+              if (item.accuracy) {
+                sample.sum_accuracy++
+                sample[`sum_${item.combination}_accuracy`] = sample[`sum_${item.combination}_accuracy`] || 0
+                sample[`sum_${item.combination}_accuracy`]++
+              } else {
                 errorCounter[item.combination]++
               }
               sample.min = sample.min || this.formatNum(item.min)
@@ -369,7 +373,6 @@
             })
             if (averageSpeed.length) {
               sample.average_speed = this.formatNum(_.mean(averageSpeed))
-              sample.sum_accuracy = averageSpeed.length
             }
 
             const errRates = _.chain(errorCounter).values()
@@ -382,7 +385,6 @@
             _.each(averageExtraSpeed, (item, key) => {
               const itemMean = _.mean(item)
               sample[`average_${key}_speed`] = this.formatNum(itemMean)
-              sample[`sum_${key}_accuracy`] = item.length
               const errRate = _.divide(errorCounter[key], _.divide(_.size(items), 3))
               sample[`efficiency_${key}`] = this.formatNum(_.chain(std)
                 .divide(errRateStandard).multiply(errRate).add(itemMean)

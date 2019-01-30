@@ -58,6 +58,18 @@
             exported: true
           },
           {
+            title: 'Self Score',
+            key: 'self_score',
+            width: 170,
+            exported: true
+          },
+          {
+            title: 'Use Score',
+            key: 'use_score',
+            width: 170,
+            exported: true
+          },
+          {
             title: 'L1 Start Age',
             key: 'lang1_start_age',
             width: 120

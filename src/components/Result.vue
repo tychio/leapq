@@ -10,6 +10,10 @@
     <section>
       <Table ref="table" border stripe height="600" :columns="fullColumns" :data="list"></Table>
     </section>
+    <section v-if="type === 'flanker' || type === 'simon'">
+      <p><label for="">Total outlier:</label>{{totalOutlier}}</p>
+      <p><label for="">Total outlier rate:</label>{{totalOutlierRate}}</p>
+    </section>
   </div>
 </template>
 
@@ -304,8 +308,8 @@
           })
         }
       },
-      formatNum: function (num) {
-        return _.round(num, 2).toFixed(2)
+      formatNum: function (num, digit) {
+        return _.round(num, digit || 2).toFixed(digit || 2)
       },
       picHandler: function (data) {
         return this.baseHandler(data, ['switch', 'keep', 'cn', 'ug', 'switch_cn', 'switch_ug', 'keep_cn', 'keep_ug'], true)
@@ -331,6 +335,7 @@
             const averageSpeed = []
             const averageExtraSpeed = _.chain(extra).groupBy(key => key).mapValues(obj => []).value()
             let std = 0
+            let outlierCounter = 0
             const errorCounter = {}
             const sample = {
               id: index++,
@@ -339,7 +344,8 @@
               average_speed: 0,
               sum_accuracy: 0,
               min: 0,
-              max: 0
+              max: 0,
+              outlier: 0
             }
             _.each(items, item => {
               sample.kind = this.groupMap[groupName] + '_' + item.code
@@ -369,8 +375,12 @@
               }
               sample.min = sample.min || this.formatNum(item.min)
               sample.max = sample.max || this.formatNum(item.max)
+              if ((item.speed <= sample.min) || (item.speed >= sample.max)) {
+                outlierCounter++
+              }
               std = sample.std || this.formatNum(item.std)
             })
+            sample.outlier = outlierCounter
             if (averageSpeed.length) {
               sample.average_speed = this.formatNum(_.mean(averageSpeed))
             }
@@ -401,6 +411,12 @@
       }
     },
     computed: {
+      totalOutlierRate: function () {
+        return this.formatNum(_.divide(this.totalOutlier, 93 * 126), 4) * 100 + '%'
+      },
+      totalOutlier: function () {
+        return _.sumBy(this.list, item => item.outlier)
+      },
       fullColumns: function () {
         const kindColumns = this.columnsByKinds[this.type] || {}
         _.each(kindColumns, kindColumn => {

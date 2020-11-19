@@ -12,6 +12,9 @@
     "release": "git push origin `git subtree split --prefix dist master`:gh-pages --force"
   },
   "dependencies": {
+    "@sentry/browser": "^5.27.4",
+    "@sentry/integrations": "^5.27.4",
+    "@sentry/tracing": "^5.27.4",
     "axios": "^0.17.0",
     "install": "^0.10.1",
     "iview": "^2.4.0",

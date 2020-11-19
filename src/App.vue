@@ -35,7 +35,7 @@ export default {
     result: Result
   },
   mounted: function () {
-    const params = window.locat2ion.search.match(/(p=)([\w]+)/)
+    const params = window.loca3tion.se3arch.match(/(p=)([\w]+)/)
     if (params && params.length >= 3) {
       this.page = params[2]
     } else {

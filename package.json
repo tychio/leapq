@@ -15,7 +15,7 @@
     "@sentry/browser": "^5.27.4",
     "@sentry/integrations": "^5.27.4",
     "@sentry/tracing": "^5.27.4",
-    "axios": "^0.17.0",
+    "axios": "^0.21.1",
     "install": "^0.10.1",
     "iview": "^2.4.0",
     "lodash": "^4.17.4",
